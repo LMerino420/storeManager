@@ -12,6 +12,7 @@ class CategoriesRoutes {
         this.router.get('/listCategory', categoriesController_1.categoriesController.getList);
         this.router.get('/category/:id', categoriesController_1.categoriesController.getOne);
         this.router.put('/updateCategory/:id', categoriesController_1.categoriesController.update);
+        this.router.delete('/deleteCategory/:id', categoriesController_1.categoriesController.delete);
     }
 }
 const categoriesRoutes = new CategoriesRoutes();

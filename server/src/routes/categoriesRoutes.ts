@@ -13,6 +13,7 @@ class CategoriesRoutes {
 		this.router.get('/listCategory', categoriesController.getList);
 		this.router.get('/category/:id', categoriesController.getOne);
 		this.router.put('/updateCategory/:id', categoriesController.update);
+		this.router.delete('/deleteCategory/:id', categoriesController.delete);
 	}
 }
 
