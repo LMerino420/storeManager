@@ -2,6 +2,20 @@ CREATE DATABASE db_store_manager;
 
 USE db_store_manager;
 
+-- ----------------------------------------PENDIENTE
+-- CREATE TABLE user_type(
+-- 	codType INT(11) NOT NULL  PRIMARY KEY,
+--     type VARCHAR(150)
+-- );
+
+-- CREATE TABLE users(
+-- 	codUser INT(11) NOT NULL  PRIMARY KEY,
+--     userName VARCHAR(60),
+--     pwd VARCHAR(255),
+--     codType INT(11) NOT NULL,
+--     FOREIGN KEY (codType) REFERENCES user_type(codType)
+-- );
+
 CREATE TABLE categories(
     codCategory INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
     categName VARCHAR(150) 
