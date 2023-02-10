@@ -2,67 +2,74 @@ CREATE DATABASE db_store_manager;
 
 USE db_store_manager;
 
--- ----------------------------------------PENDIENTE
--- CREATE TABLE user_type(
--- 	codType INT(11) NOT NULL  PRIMARY KEY,
---     type VARCHAR(150)
--- );
-
--- CREATE TABLE users(
--- 	codUser INT(11) NOT NULL  PRIMARY KEY,
---     userName VARCHAR(60),
---     pwd VARCHAR(255),
---     codType INT(11) NOT NULL,
---     FOREIGN KEY (codType) REFERENCES user_type(codType)
--- );
-
-CREATE TABLE categories(
-    codCategory INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    categName VARCHAR(150) 
+CREATE TABLE categorias(
+    codCategoria INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    categNombre VARCHAR(150) 
 );
 
-CREATE TABLE products(
-    codProduct INT(11) NOT NULL  PRIMARY KEY,
-    productName VARCHAR(150),
-    productPrice DECIMAL(9,2),
-    productDescription VARCHAR(350),
-    productState VARCHAR(10),
-    codCategory INT(11),
-    created TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (codCategory) REFERENCES categories(codCategory)
+CREATE TABLE productos(
+    codProducto INT(11) NOT NULL  PRIMARY KEY,
+    prodNombre VARCHAR(150),
+    prodPrecio DECIMAL(9,2),
+    prodDescripcion VARCHAR(350),
+    prodEstado VARCHAR(10),
+    codCategoria INT(11),
+    creado TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (codCategoria) REFERENCES categorias(codCategoria)
 );
 
-CREATE TABLE sellers(
-    codSeller INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    sellerName VARCHAR(150),
-    sellerLastName VARCHAR(150),
-    sellerContact INT
+CREATE TABLE clientes(
+    codCliente INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    cliNombre VARCHAR(150),
+    cliApellido VARCHAR(150),
+    cliCorreo VARCHAR(260),
+    cliTel INT
 );
 
-CREATE TABLE customers(
-    codCustomer INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    customerName VARCHAR(150),
-    customerLastName VARCHAR(150),
-    customerMail VARCHAR(260),
-    customerTel INT
+CREATE TABLE tipo_usuario(
+	codTipo INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    tipoNombre VARCHAR(150)
 );
 
-CREATE TABLE assignments (
-    codSeller INT(11) NOT NULL,
-    codProduct INT(11) NOT NULL,
-    assigned TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (codSeller) REFERENCES sellers(codSeller),
-    FOREIGN KEY (codProduct) REFERENCES products(codProduct)
+CREATE TABLE usuarios(
+	codUsuario INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    usrNombre VARCHAR(150),
+    usrApellido VARCHAR(150),
+    usrNick VARCHAR(50),
+    ustPwd VARCHAR(260),
+    codTipo INT(11) NOT NULL,
+    FOREIGN KEY (codTipo) REFERENCES tipo_usuario(codTipo)
 );
 
-CREATE TABLE sales(
-    codSeller INT(11) NOT NULL,
-    codProduct INT(11) NOT NULL,
-    codCustomer INT(11),
-    sellingPrice DECIMAL(9,2),
-    sold TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (codSeller) REFERENCES sellers(codSeller),
-    FOREIGN KEY (codProduct) REFERENCES products(codProduct),
-    FOREIGN KEY (codCustomer) REFERENCES customers(codCustomer)
+CREATE TABLE asignaciones(
+	codUsuario INT(11) NOT NULL,
+    codProducto INT(11) NOT NULL,
+    comentario VARCHAR(350),
+    recibido TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (codUsuario) REFERENCES usuarios(codUsuario),
+    FOREIGN KEY (codProducto) REFERENCES productos(codProducto)
 );
 
+CREATE TABLE venta_enc(
+	codVenta INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    codUsuario INT(11) NOT NULL,
+    codCliente INT(11),
+    vendido TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (codUsuario) REFERENCES usuarios(codUsuario),
+    FOREIGN KEY (codCliente) REFERENCES clientes(codCliente)
+);
+
+CREATE TABLE venta_detalle(
+	codVenta INT(11) NOT NULL,
+    codProducto INT(11) NOT NULL,
+    valVenta DECIMAL(9,2),
+    FOREIGN KEY (codVenta) REFERENCES venta_enc(codVenta),
+    FOREIGN KEY (codProducto) REFERENCES productos(codProducto)
+);
+
+CREATE TABLE venta_pie(
+	codVenta INT(11) NOT NULL,
+    cantidadProdutos INT(3),
+    totalVenta DECIMAL(9,2),
+    FOREIGN KEY (codVenta) REFERENCES venta_enc(codVenta)
+);
