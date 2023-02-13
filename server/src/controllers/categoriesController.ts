@@ -4,13 +4,13 @@ import db from '../database';
 class CategoriesController {
 	// Nueva categoria
 	public async create(req: Request, res: Response): Promise<void> {
-		await db.query('INSERT INTO categories set ?', [req.body]);
+		await db.query('INSERT INTO categorias set ?', [req.body]);
 		res.json({code: 'SUCCESS'});
 	}
 
 	// Obtener lista de categorias
 	public async getList(req: Request, res: Response): Promise<any> {
-		const games = await db.query('SELECT * FROM categories');
+		const games = await db.query('SELECT * FROM categorias');
 
 		if (games.length > 0) {
 			return res.json({
@@ -27,7 +27,7 @@ class CategoriesController {
 	public async getOne(req: Request, res: Response): Promise<any> {
 		const {id} = req.params;
 		const game = await db.query(
-			'SELECT * FROM categories WHERE codCategory = ?',
+			'SELECT * FROM categorias WHERE codCategoria = ?',
 			[id]
 		);
 
@@ -45,7 +45,7 @@ class CategoriesController {
 	// Actualizar una categoria
 	public async update(req: Request, res: Response): Promise<void> {
 		const {id} = req.params;
-		await db.query('UPDATE categories SET ? WHERE codCategory = ?', [
+		await db.query('UPDATE categorias SET ? WHERE codCategoria = ?', [
 			req.body,
 			id,
 		]);
@@ -55,7 +55,7 @@ class CategoriesController {
 	// Eliminar una categoria
 	public async delete(req: Request, res: Response): Promise<void> {
 		const {id} = req.params;
-		await db.query('DELETE FROM categories WHERE codCategory = ?', [id]);
+		await db.query('DELETE FROM categorias WHERE codCategoria = ?', [id]);
 		res.json({code: 'SUCCESS'});
 	}
 }

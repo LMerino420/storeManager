@@ -18,14 +18,14 @@ class CategoriesController {
     // Nueva categoria
     create(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            yield database_1.default.query('INSERT INTO categories set ?', [req.body]);
+            yield database_1.default.query('INSERT INTO categorias set ?', [req.body]);
             res.json({ code: 'SUCCESS' });
         });
     }
     // Obtener lista de categorias
     getList(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            const games = yield database_1.default.query('SELECT * FROM categories');
+            const games = yield database_1.default.query('SELECT * FROM categorias');
             if (games.length > 0) {
                 return res.json({
                     code: 'SUCCESS',
@@ -41,7 +41,7 @@ class CategoriesController {
     getOne(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const { id } = req.params;
-            const game = yield database_1.default.query('SELECT * FROM categories WHERE codCategory = ?', [id]);
+            const game = yield database_1.default.query('SELECT * FROM categorias WHERE codCategoria = ?', [id]);
             if (game.length > 0) {
                 return res.json({
                     code: 'SUCCESS',
@@ -57,7 +57,7 @@ class CategoriesController {
     update(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const { id } = req.params;
-            yield database_1.default.query('UPDATE categories SET ? WHERE codCategory = ?', [
+            yield database_1.default.query('UPDATE categorias SET ? WHERE codCategoria = ?', [
                 req.body,
                 id,
             ]);
@@ -68,7 +68,7 @@ class CategoriesController {
     delete(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const { id } = req.params;
-            yield database_1.default.query('DELETE FROM categories WHERE codCategory = ?', [id]);
+            yield database_1.default.query('DELETE FROM categorias WHERE codCategoria = ?', [id]);
             res.json({ code: 'SUCCESS' });
         });
     }

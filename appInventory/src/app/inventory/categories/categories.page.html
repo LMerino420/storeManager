@@ -1,9 +1,39 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>categories</ion-title>
-  </ion-toolbar>
-</ion-header>
-
 <ion-content>
+  <!-- HEADER -->
+  <div class="header">
+    <ion-buttons slot="start" class="menu_btn">
+      <ion-button (click)="goHome()">
+        <ion-icon name="arrow-back"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-label>Categories</ion-label>
+  </div>
 
+  <!-- DETAIL -->
+  <div class="detailCategories">
+    <ion-label>QTY: {{qty}}</ion-label>
+  </div>
+
+  <!-- LIST CATEGORIES -->
+  <div class="listCat">
+    <ion-item lines="none" *ngFor="let item of listCategories">
+      <ion-label>{{item.categNombre}}</ion-label>
+      <ion-button class="edit-btn" (click)="getCategory(item.codCategoria)">
+        <ion-icon name="create"></ion-icon>
+      </ion-button>
+      <ion-button
+        class="delete-btn"
+        (click)="deleteCategory(item.codCategoria,item.categNombre)"
+      >
+        <ion-icon name="trash"></ion-icon>
+      </ion-button>
+    </ion-item>
+  </div>
+
+  <!-- ADD BUTTON -->
+  <ion-fab slot="fixed" vertical="bottom" horizontal="end">
+    <ion-fab-button (click)="addCategory()">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
 </ion-content>
