@@ -1,0 +1,57 @@
+<ion-content>
+  <!-- HEADER -->
+  <div class="header">
+    <ion-buttons slot="start" class="menu_btn">
+      <ion-button (click)="goBack()">
+        <ion-icon name="arrow-back"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-label>Add product</ion-label>
+  </div>
+
+  <!-- FORMULARIO -->
+  <form>
+    <div class="frmDiv">
+      <ion-item lines="none">
+        <ion-label position="stacked">Category</ion-label>
+        <ion-select interface="popover">
+          <ion-select-option value="apples">Apples</ion-select-option>
+          <ion-select-option value="oranges">Oranges</ion-select-option>
+          <ion-select-option value="bananas">Bananas</ion-select-option>
+        </ion-select>
+      </ion-item>
+    </div>
+    <div class="frmDiv">
+      <ion-item lines="none">
+        <ion-label position="stacked">Name</ion-label>
+        <ion-input></ion-input>
+      </ion-item>
+    </div>
+    <div class="frmDiv">
+      <ion-item lines="none">
+        <ion-label position="stacked">Price</ion-label>
+        <ion-input></ion-input>
+      </ion-item>
+    </div>
+    <div class="frmDiv">
+      <ion-item lines="none">
+        <ion-label position="stacked">Description</ion-label>
+        <ion-textarea></ion-textarea>
+      </ion-item>
+    </div>
+    <div class="frmDiv">
+      <ion-item>
+        <ion-label position="stacked">Upload image</ion-label>
+        <!-- <input type="file" name="" id="" /> -->
+        <ion-button (click)="takePhoto()">
+          <ion-icon name="camera"></ion-icon>
+        </ion-button>
+      </ion-item>
+    </div>
+    <ion-row>
+      <ion-col size="6" *ngFor="let item of cameraService.picture; index as i">
+        <ion-img [src]="item.webviewPath"></ion-img>
+      </ion-col>
+    </ion-row>
+  </form>
+</ion-content>

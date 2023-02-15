@@ -10,7 +10,7 @@ import { CategoriesService } from '../../services/categories.service';
   styleUrls: ['./categories.page.scss'],
 })
 export class CategoriesPage implements OnInit {
-  qty: any;
+  qty: any = 0;
   listCategories: any = [];
 
   constructor(

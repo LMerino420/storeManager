@@ -1,0 +1,23 @@
+<ion-content>
+  <!-- HEADER -->
+  <div class="header">
+    <ion-buttons slot="start" class="menu_btn">
+      <ion-button (click)="goHome()">
+        <ion-icon name="arrow-back"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-label>Products</ion-label>
+  </div>
+
+  <!-- DETAIL -->
+  <div class="detailDiv">
+    <ion-label>QTY: {{qty}}</ion-label>
+  </div>
+
+  <!-- ADD BUTTON -->
+  <ion-fab slot="fixed" vertical="bottom" horizontal="end">
+    <ion-fab-button (click)="addProduct()">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+</ion-content>

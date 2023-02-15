@@ -5,6 +5,7 @@ import cors from 'cors';
 
 import indexRoutes from './routes/indexRoutes';
 import categoriesRoutes from './routes/categoriesRoutes';
+import productsRoutes from './routes/productsRoutes';
 
 class Server {
 	public app: Application;
@@ -26,6 +27,7 @@ class Server {
 	routes(): void {
 		this.app.use('/', indexRoutes);
 		this.app.use('/categories', categoriesRoutes);
+		this.app.use('/products', productsRoutes);
 	}
 
 	start(): void {

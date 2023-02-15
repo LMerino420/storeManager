@@ -14,4 +14,8 @@ export class HomePage implements OnInit {
   goToCategories() {
     this.router.navigate(['/categories']);
   }
+
+  goToProducts() {
+    this.router.navigate(['/products']);
+  }
 }

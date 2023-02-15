@@ -8,10 +8,11 @@ CREATE TABLE categorias(
 );
 
 CREATE TABLE productos(
-    codProducto INT(11) NOT NULL  PRIMARY KEY,
+    codProducto INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
     prodNombre VARCHAR(150),
     prodPrecio DECIMAL(9,2),
     prodDescripcion VARCHAR(350),
+    prodImage VARCHAR(250),
     prodEstado VARCHAR(10),
     codCategoria INT(11),
     creado TIMESTAMP DEFAULT CURRENT_TIMESTAMP,

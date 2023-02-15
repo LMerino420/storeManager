@@ -1,0 +1,17 @@
+form {
+  background-color: white;
+  .frmDiv {
+    padding-left: 20px;
+    padding-right: 20px;
+    margin-bottom: 5px;
+    ion-label {
+      color: #020540;
+    }
+  }
+  ion-select,
+  ion-input,
+  ion-textarea {
+    margin-top: 6px;
+    border-bottom: 2px solid #020540;
+  }
+}
