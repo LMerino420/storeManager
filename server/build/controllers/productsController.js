@@ -15,6 +15,23 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.productsController = void 0;
 const database_1 = __importDefault(require("../database"));
 class ProductsController {
+    constructor() {
+        this.uploadImg = (req, res) => __awaiter(this, void 0, void 0, function* () {
+            const file = req.file;
+            const fileImg = {
+                codProducto: 0,
+                nombreImg: file === null || file === void 0 ? void 0 : file.originalname,
+                urlImg: file === null || file === void 0 ? void 0 : file.path,
+            };
+            console.log('fileImg', fileImg);
+            if (!file) {
+                res.json({ code: 'NO_FILE' });
+            }
+            res.json({
+                code: 'SUCCESS',
+            });
+        });
+    }
     // Nueva producto
     create(req, res) {
         return __awaiter(this, void 0, void 0, function* () {

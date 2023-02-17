@@ -45,7 +45,7 @@ export class CameraService {
 
   public async savePicture(cameraPhoto: CameraPhoto) {
     // Convertie la foto a base64
-    const base64Data = await this.reasAsBase64(cameraPhoto);
+    const base64Data = await this.readAsBase64(cameraPhoto);
     // Escribir la foto en el directorio
     const fileName = new Date().getTime + '.jpeg';
     const savedFile = await Filesystem.writeFile({
@@ -60,7 +60,7 @@ export class CameraService {
     };
   }
 
-  public async reasAsBase64(cameraPhoto: CameraPhoto) {
+  public async readAsBase64(cameraPhoto: CameraPhoto) {
     // Convertir de blob a base64
     const response = await fetch(cameraPhoto.webPath!);
     const blob = await response.blob();

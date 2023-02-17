@@ -12,11 +12,18 @@ CREATE TABLE productos(
     prodNombre VARCHAR(150),
     prodPrecio DECIMAL(9,2),
     prodDescripcion VARCHAR(350),
-    prodImage VARCHAR(250),
     prodEstado VARCHAR(10),
     codCategoria INT(11),
     creado TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (codCategoria) REFERENCES categorias(codCategoria)
+);
+
+CREATE TABLE imagenes(
+	codProducto INT(11) NOT NULL,
+    nombreImg VARCHAR(150),
+    urlImg VARCHAR(180),
+    imgCreada TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+	FOREIGN KEY (codProducto) REFERENCES productos(codProducto)
 );
 
 CREATE TABLE clientes(
