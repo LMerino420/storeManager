@@ -1,5 +1,5 @@
-import {Router} from 'express';
-import {productsController} from '../controllers/productsController';
+import { Router } from 'express';
+import { productsController } from '../controllers/productsController';
 
 import multer from 'multer';
 
@@ -21,13 +21,13 @@ class ProductsRoutes {
 			},
 		});
 
-		const upload = multer({storage});
+		const upload = multer({ storage });
 
 		// RUTAS DEL CRUD
 		this.router.post(
 			'/uploadImage',
 			upload.single('file'),
-			productsController.uploadImg
+			productsController.uploadImg,
 		);
 		this.router.post('/newProduct', productsController.create);
 

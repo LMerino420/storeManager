@@ -4,11 +4,9 @@ import {
   CameraPhoto,
   CameraResultType,
   CameraSource,
-  Photo,
 } from '@capacitor/camera';
 import { Filesystem, Directory } from '@capacitor/filesystem';
 import { Preferences } from '@capacitor/preferences';
-import { Dir } from 'fs';
 import { PhotoIf } from '../models/photo.interface';
 
 @Injectable({

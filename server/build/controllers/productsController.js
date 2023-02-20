@@ -24,18 +24,17 @@ class ProductsController {
                 urlImg: file === null || file === void 0 ? void 0 : file.path,
             };
             console.log('fileImg', fileImg);
-            if (!file) {
-                res.json({ code: 'NO_FILE' });
+            if (file) {
+                yield database_1.default.query('INSERT INTO imagenes SET ?', [fileImg]);
+                res.json({ code: 'SUCCESS' });
             }
-            res.json({
-                code: 'SUCCESS',
-            });
+            res.json({ code: 'NO_FILE' });
         });
     }
     // Nueva producto
     create(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            yield database_1.default.query('INSERT INTO productos set ?', [req.body]);
+            yield database_1.default.query('INSERT INTO productos SET ?', [req.body]);
             res.json({ code: 'SUCCESS' });
         });
     }

@@ -8,7 +8,7 @@ const productsController_1 = require("../controllers/productsController");
 const multer_1 = __importDefault(require("multer"));
 class ProductsRoutes {
     constructor() {
-        this.router = express_1.Router();
+        this.router = (0, express_1.Router)();
         this.config();
     }
     config() {
@@ -21,7 +21,7 @@ class ProductsRoutes {
                 callBack(null, file.originalname);
             },
         });
-        const upload = multer_1.default({ storage });
+        const upload = (0, multer_1.default)({ storage });
         // RUTAS DEL CRUD
         this.router.post('/uploadImage', upload.single('file'), productsController_1.productsController.uploadImg);
         this.router.post('/newProduct', productsController_1.productsController.create);

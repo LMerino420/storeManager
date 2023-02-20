@@ -27,7 +27,7 @@ export class CategoriesPage implements OnInit {
     this.router.navigate(['/home']);
   }
 
-  // OBTENER LISTA DE CATEGORIAS
+  //* OBTENER LISTA DE CATEGORIAS
   async getListCategories() {
     const data = await this.categoriesService.getCategories();
     data.subscribe((dt: any) => {
@@ -42,7 +42,7 @@ export class CategoriesPage implements OnInit {
     });
   }
 
-  // AGREGAR UNA CATEGORIA
+  //* AGREGAR UNA CATEGORIA
   async addCategory() {
     const alert = await this.alertController.create({
       header: 'Create new category',
@@ -80,7 +80,7 @@ export class CategoriesPage implements OnInit {
     await alert.present();
   }
 
-  // OBTENER DATOS DE CATEGORIA
+  //* OBTENER DATOS DE CATEGORIA
   async getCategory(cod: string) {
     const data = await this.categoriesService.getCategory(cod);
     data.subscribe((r: any) => {
@@ -94,7 +94,7 @@ export class CategoriesPage implements OnInit {
     });
   }
 
-  // EDITAR UNA CATEGORIA
+  //* EDITAR UNA CATEGORIA
   async editCategory(id: string, val: string) {
     const alert = await this.alertController.create({
       header: 'Edit category',
@@ -131,7 +131,7 @@ export class CategoriesPage implements OnInit {
     await alert.present();
   }
 
-  // ELIMINAR UNA CATEGORIA
+  //* ELIMINAR UNA CATEGORIA
   async deleteCategory(id: string, cat: string) {
     const alert = await this.alertController.create({
       header: 'Do you want to delete ' + cat + ' ?',
