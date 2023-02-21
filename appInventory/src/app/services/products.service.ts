@@ -9,7 +9,11 @@ export class ProductsService {
 
   constructor(private http: HttpClient) {}
 
-  uploadImage(image: any) {
-    return this.http.post(`${this.API_URI}/uploadImage`, image);
+  uploadImage(id: string, image: any) {
+    return this.http.post(`${this.API_URI}/uploadImage/${id}`, image);
+  }
+
+  addProduct(product: any) {
+    return this.http.post(`${this.API_URI}/newProduct`, product);
   }
 }

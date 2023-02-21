@@ -10,36 +10,80 @@
   </div>
 
   <!-- FORMULARIO -->
-  <form (ngSubmit)="onSubmit()">
+  <form [formGroup]="form" (ngSubmit)="addProduct()">
     <div class="frmDiv">
       <ion-item lines="none">
         <ion-label position="stacked">Category</ion-label>
-        <ion-select interface="popover">
-          <ion-select-option value="apples">Apples</ion-select-option>
-          <ion-select-option value="oranges">Oranges</ion-select-option>
-          <ion-select-option value="bananas">Bananas</ion-select-option>
+        <ion-select
+          interface="popover"
+          placeholder="Select a category"
+          formControlName="codCategoria"
+        >
+          <ion-select-option
+            *ngFor="let item of listCategories"
+            [value]="item.codCategoria"
+          >
+            {{item.categNombre}}
+          </ion-select-option>
         </ion-select>
       </ion-item>
     </div>
     <div class="frmDiv">
       <ion-item lines="none">
         <ion-label position="stacked">Name</ion-label>
-        <ion-input></ion-input>
+        <ion-input
+          formControlName="prodNombre"
+          placeholder="Product name"
+        ></ion-input>
       </ion-item>
     </div>
     <div class="frmDiv">
       <ion-item lines="none">
         <ion-label position="stacked">Price</ion-label>
-        <ion-input></ion-input>
+        <ion-input
+          type="number"
+          formControlName="prodPrecio"
+          placeholder="0.00"
+        ></ion-input>
       </ion-item>
     </div>
     <div class="frmDiv">
       <ion-item lines="none">
         <ion-label position="stacked">Description</ion-label>
-        <ion-textarea></ion-textarea>
+        <ion-textarea
+          formControlName="prodDescripcion"
+          placeholder="Write an optional description"
+        ></ion-textarea>
       </ion-item>
     </div>
-    <div class="form-goup">
+
+    <div class="imgDiv">
+      <ion-card
+        style="background-image: url('{{imgUrl}}');background-size: contain;background-repeat: no-repeat;background-position: center;"
+      >
+        <ion-card-content>
+          <div class="upload" *ngIf="imgUrl === ''">
+            <ion-icon
+              name="add"
+              onclick="document.getElementById('getFile').click()"
+            ></ion-icon>
+            <input
+              type="file"
+              id="getFile"
+              (change)="selectImg($event)"
+              style="display: none"
+            />
+            <ion-label>Upload image</ion-label>
+          </div>
+        </ion-card-content>
+        <div class="delete" *ngIf="imgUrl != ''">
+          <ion-icon name="trash"></ion-icon>
+        </div>
+      </ion-card>
+    </div>
+    <ion-button type="submit"> Add product </ion-button>
+    <!-- OPCIONES DE CAMARA  -->
+    <!-- <div class="form-goup">
       <ion-label>Upload file...</ion-label>
       <input
         class="form-control-field"
@@ -52,16 +96,17 @@
     </div>
     <div class="row">
       <ion-img [src]="imgUrl"></ion-img>
-    </div>
+    </div> -->
     <!-- <div class="frmDiv">
       <ion-item>
         <ion-label position="stacked">Upload image</ion-label>
         <ion-button (click)="takePhoto()">
           <ion-icon name="camera"></ion-icon>
         </ion-button>
+        <ion-button (click)="testUpload()"> Click me </ion-button>
       </ion-item>
-    </div> -->
-    <!-- <ion-row>
+    </div> 
+    <ion-row>
       <ion-col size="6" *ngFor="let item of cameraService.picture; index as i">
         <ion-img [src]="item.webviewPath"></ion-img>
       </ion-col>

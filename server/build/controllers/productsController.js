@@ -17,9 +17,10 @@ const database_1 = __importDefault(require("../database"));
 class ProductsController {
     constructor() {
         this.uploadImg = (req, res) => __awaiter(this, void 0, void 0, function* () {
+            const { id } = req.params;
             const file = req.file;
             const fileImg = {
-                codProducto: 0,
+                codProducto: id,
                 nombreImg: file === null || file === void 0 ? void 0 : file.originalname,
                 urlImg: file === null || file === void 0 ? void 0 : file.path,
             };
@@ -27,15 +28,22 @@ class ProductsController {
             if (file) {
                 yield database_1.default.query('INSERT INTO imagenes SET ?', [fileImg]);
                 res.json({ code: 'SUCCESS' });
+                return;
             }
             res.json({ code: 'NO_FILE' });
+            return;
         });
     }
     // Nueva producto
     create(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            yield database_1.default.query('INSERT INTO productos SET ?', [req.body]);
-            res.json({ code: 'SUCCESS' });
+            const query = yield database_1.default.query('INSERT INTO productos SET ?', [req.body]);
+            res.json({
+                code: 'SUCCESS',
+                object: {
+                    insertId: query.insertId,
+                },
+            });
         });
     }
 }

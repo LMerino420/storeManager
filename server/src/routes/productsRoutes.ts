@@ -25,7 +25,7 @@ class ProductsRoutes {
 
 		// RUTAS DEL CRUD
 		this.router.post(
-			'/uploadImage',
+			'/uploadImage/:id',
 			upload.single('file'),
 			productsController.uploadImg,
 		);
