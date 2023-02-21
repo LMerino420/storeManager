@@ -20,15 +20,16 @@ class ProductsRoutes {
 				callBack(null, file.originalname);
 			},
 		});
-
 		const upload = multer({ storage });
 
-		// RUTAS DEL CRUD
+		//* RUTAS PARA EL MANTENIMIENTO DE LA TABLA DE IMAGENES
 		this.router.post(
 			'/uploadImage/:id',
 			upload.single('file'),
 			productsController.uploadImg,
 		);
+
+		//* RUTAS PARA EL MANTENIMIENTO DE LA TABLA DE PRODUCTOS
 		this.router.post('/newProduct', productsController.create);
 
 		// this.router.get('/listCategory', categoriesController.getList);

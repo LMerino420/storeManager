@@ -15,14 +15,14 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.categoriesController = void 0;
 const database_1 = __importDefault(require("../database"));
 class CategoriesController {
-    // Nueva categoria
+    //* Nueva categoria
     create(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             yield database_1.default.query('INSERT INTO categorias set ?', [req.body]);
             res.json({ code: 'SUCCESS' });
         });
     }
-    // Obtener lista de categorias
+    //* Obtener lista de categorias
     getList(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const games = yield database_1.default.query('SELECT * FROM categorias');
@@ -37,7 +37,7 @@ class CategoriesController {
             });
         });
     }
-    // Obtener una categoria
+    //* Obtener una categoria
     getOne(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const { id } = req.params;
@@ -53,7 +53,7 @@ class CategoriesController {
             });
         });
     }
-    // Actualizar una categoria
+    //* Actualizar una categoria
     update(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const { id } = req.params;
@@ -64,7 +64,7 @@ class CategoriesController {
             res.json({ code: 'SUCCESS' });
         });
     }
-    // Eliminar una categoria
+    //* Eliminar una categoria
     delete(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const { id } = req.params;

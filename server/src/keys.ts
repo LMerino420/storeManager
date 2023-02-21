@@ -1,4 +1,5 @@
 export default {
+	//* CREDENCIALES PARA LA CONEXION A LA BASE DE DATOS
 	database: {
 		host: 'localhost',
 		user: 'root',

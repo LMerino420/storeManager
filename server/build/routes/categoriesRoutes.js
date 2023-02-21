@@ -7,6 +7,7 @@ class CategoriesRoutes {
         this.router = (0, express_1.Router)();
         this.config();
     }
+    //* RUTAS PARA MANTENIMIENTO DE LA TABLA CATEGORIAS DE LA BDO
     config() {
         this.router.post('/newCategory', categoriesController_1.categoriesController.create);
         this.router.get('/listCategory', categoriesController_1.categoriesController.getList);

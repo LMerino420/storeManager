@@ -1,14 +1,15 @@
-import {Request, Response} from 'express';
+//* CONTROLADOR DE LA RUTA DE CATEGORIAS
+import { Request, Response } from 'express';
 import db from '../database';
 
 class CategoriesController {
-	// Nueva categoria
+	//* Nueva categoria
 	public async create(req: Request, res: Response): Promise<void> {
 		await db.query('INSERT INTO categorias set ?', [req.body]);
-		res.json({code: 'SUCCESS'});
+		res.json({ code: 'SUCCESS' });
 	}
 
-	// Obtener lista de categorias
+	//* Obtener lista de categorias
 	public async getList(req: Request, res: Response): Promise<any> {
 		const games = await db.query('SELECT * FROM categorias');
 
@@ -23,12 +24,12 @@ class CategoriesController {
 		});
 	}
 
-	// Obtener una categoria
+	//* Obtener una categoria
 	public async getOne(req: Request, res: Response): Promise<any> {
-		const {id} = req.params;
+		const { id } = req.params;
 		const game = await db.query(
 			'SELECT * FROM categorias WHERE codCategoria = ?',
-			[id]
+			[id],
 		);
 
 		if (game.length > 0) {
@@ -42,21 +43,21 @@ class CategoriesController {
 		});
 	}
 
-	// Actualizar una categoria
+	//* Actualizar una categoria
 	public async update(req: Request, res: Response): Promise<void> {
-		const {id} = req.params;
+		const { id } = req.params;
 		await db.query('UPDATE categorias SET ? WHERE codCategoria = ?', [
 			req.body,
 			id,
 		]);
-		res.json({code: 'SUCCESS'});
+		res.json({ code: 'SUCCESS' });
 	}
 
-	// Eliminar una categoria
+	//* Eliminar una categoria
 	public async delete(req: Request, res: Response): Promise<void> {
-		const {id} = req.params;
+		const { id } = req.params;
 		await db.query('DELETE FROM categorias WHERE codCategoria = ?', [id]);
-		res.json({code: 'SUCCESS'});
+		res.json({ code: 'SUCCESS' });
 	}
 }
 

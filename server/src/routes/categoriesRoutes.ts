@@ -1,5 +1,5 @@
-import {Router} from 'express';
-import {categoriesController} from '../controllers/categoriesController';
+import { Router } from 'express';
+import { categoriesController } from '../controllers/categoriesController';
 
 class CategoriesRoutes {
 	public router: Router = Router();
@@ -8,6 +8,7 @@ class CategoriesRoutes {
 		this.config();
 	}
 
+	//* RUTAS PARA MANTENIMIENTO DE LA TABLA CATEGORIAS DE LA BDO
 	config(): void {
 		this.router.post('/newCategory', categoriesController.create);
 		this.router.get('/listCategory', categoriesController.getList);

@@ -1,8 +1,9 @@
+//* CONTROLADOR DE LA RUTA DE PRODUTOS
 import { Request, Response } from 'express';
 import db from '../database';
 
 class ProductsController {
-	// Nueva producto
+	//* Nueva producto
 	public async create(req: Request, res: Response): Promise<void> {
 		const query = await db.query('INSERT INTO productos SET ?', [req.body]);
 		res.json({
@@ -13,6 +14,7 @@ class ProductsController {
 		});
 	}
 
+	//* Subir imagen del producto e insertarlo a la tabla
 	public uploadImg = async (req: Request, res: Response) => {
 		const { id } = req.params;
 		const file = req.file;

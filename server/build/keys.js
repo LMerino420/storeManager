@@ -1,6 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.default = {
+    //* CREDENCIALES PARA LA CONEXION A LA BASE DE DATOS
     database: {
         host: 'localhost',
         user: 'root',

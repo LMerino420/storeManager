@@ -1,3 +1,4 @@
+//* CONEXION A LA BASE DE DATOS
 import mysql from 'promise-mysql';
 import keys from './keys';
 

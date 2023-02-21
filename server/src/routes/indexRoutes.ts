@@ -1,5 +1,6 @@
-import {Router} from 'express';
-import {indexController} from '../controllers/indexController';
+//* RUTA RAIZ DEL SERVIDOR
+import { Router } from 'express';
+import { indexController } from '../controllers/indexController';
 
 class IndexRoutes {
 	public router: Router = Router();

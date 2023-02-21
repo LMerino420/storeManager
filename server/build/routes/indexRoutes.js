@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+//* RUTA RAIZ DEL SERVIDOR
 const express_1 = require("express");
 const indexController_1 = require("../controllers/indexController");
 class IndexRoutes {

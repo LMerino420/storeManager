@@ -1,8 +1,9 @@
-import {Request, Response} from 'express';
+//* CONTROLADOR DE LA RUTA RAIZ DEL SERVIDOR
+import { Request, Response } from 'express';
 
 class IndexController {
 	public index(req: Request, res: Response) {
-		res.json({info: 'Welcome to server !!!'});
+		res.json({ info: 'Welcome to server !!!' });
 	}
 }
 

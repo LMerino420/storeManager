@@ -16,6 +16,7 @@ exports.productsController = void 0;
 const database_1 = __importDefault(require("../database"));
 class ProductsController {
     constructor() {
+        //* Subir imagen del producto e insertarlo a la tabla
         this.uploadImg = (req, res) => __awaiter(this, void 0, void 0, function* () {
             const { id } = req.params;
             const file = req.file;
@@ -34,7 +35,7 @@ class ProductsController {
             return;
         });
     }
-    // Nueva producto
+    //* Nueva producto
     create(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const query = yield database_1.default.query('INSERT INTO productos SET ?', [req.body]);
