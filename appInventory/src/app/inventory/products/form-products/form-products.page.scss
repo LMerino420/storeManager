@@ -15,6 +15,10 @@ form {
   ion-textarea {
     margin-top: 6px;
     border-bottom: 2px solid #020540;
+    &.is-invalid {
+      --placeholder-color: red;
+      --placeholder-opacity: 1;
+    }
   }
 }
 

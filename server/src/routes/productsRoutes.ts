@@ -1,7 +1,8 @@
-import { Router } from 'express';
+import express, { Router } from 'express';
 import { productsController } from '../controllers/productsController';
 
 import multer from 'multer';
+// import path from 'path';
 
 class ProductsRoutes {
 	public router: Router = Router();
@@ -11,10 +12,13 @@ class ProductsRoutes {
 	}
 
 	config(): void {
+		// const app = express();
+		// app.use('/src/imgProducts', express.static(path.join(__dirname, './src/imgProducts')));
+
 		// CONFIGURACION PARA GUARDAR ARCHIVO EN DIRECTORIO ESPECIFICO
 		const storage = multer.diskStorage({
 			destination: (req, file, callBack) => {
-				callBack(null, './src/imgProducts');
+				callBack(null, 'imgProducts');
 			},
 			filename: (req, file, callBack) => {
 				callBack(null, file.originalname);
@@ -23,14 +27,11 @@ class ProductsRoutes {
 		const upload = multer({ storage });
 
 		//* RUTAS PARA EL MANTENIMIENTO DE LA TABLA DE IMAGENES
-		this.router.post(
-			'/uploadImage/:id',
-			upload.single('file'),
-			productsController.uploadImg,
-		);
+		this.router.post('/uploadImage/:id', upload.single('file'), productsController.uploadImg);
 
 		//* RUTAS PARA EL MANTENIMIENTO DE LA TABLA DE PRODUCTOS
 		this.router.post('/newProduct', productsController.create);
+		this.router.get('/prodImg', productsController.getProductsImg);
 
 		// this.router.get('/listCategory', categoriesController.getList);
 		// this.router.get('/category/:id', categoriesController.getOne);

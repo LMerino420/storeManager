@@ -11,6 +11,7 @@
 
   <!-- FORMULARIO -->
   <form [formGroup]="form" (ngSubmit)="addProduct()">
+    <!-- Selector de categorias -->
     <div class="frmDiv">
       <ion-item lines="none">
         <ion-label position="stacked">Category</ion-label>
@@ -18,6 +19,7 @@
           interface="popover"
           placeholder="Select a category"
           formControlName="codCategoria"
+          [class.is-invalid]="codCategoria!.touched && codCategoria!.invalid"
         >
           <ion-select-option
             *ngFor="let item of listCategories"
@@ -28,15 +30,18 @@
         </ion-select>
       </ion-item>
     </div>
+    <!-- Input de nombre del producto -->
     <div class="frmDiv">
       <ion-item lines="none">
         <ion-label position="stacked">Name</ion-label>
         <ion-input
           formControlName="prodNombre"
           placeholder="Product name"
+          [class.is-invalid]="prodNombre!.touched && prodNombre!.invalid"
         ></ion-input>
       </ion-item>
     </div>
+    <!-- Input del precio del producto -->
     <div class="frmDiv">
       <ion-item lines="none">
         <ion-label position="stacked">Price</ion-label>
@@ -44,9 +49,11 @@
           type="number"
           formControlName="prodPrecio"
           placeholder="0.00"
+          [class.is-invalid]="prodPrecio!.touched && prodPrecio!.invalid"
         ></ion-input>
       </ion-item>
     </div>
+    <!-- Textarea de la descripcion del producto -->
     <div class="frmDiv">
       <ion-item lines="none">
         <ion-label position="stacked">Description</ion-label>
@@ -56,7 +63,7 @@
         ></ion-textarea>
       </ion-item>
     </div>
-
+    <!-- Contenedor para subir la imagen del producto -->
     <div class="imgDiv">
       <ion-card
         style="background-image: url('{{imgUrl}}');background-size: contain;background-repeat: no-repeat;background-position: center;"
@@ -81,7 +88,9 @@
         </div>
       </ion-card>
     </div>
+    <!-- Boton para enviar los datos del formulario -->
     <ion-button type="submit"> Add product </ion-button>
+
     <!-- OPCIONES DE CAMARA  -->
     <!-- <div class="form-goup">
       <ion-label>Upload file...</ion-label>
@@ -96,8 +105,8 @@
     </div>
     <div class="row">
       <ion-img [src]="imgUrl"></ion-img>
-    </div> -->
-    <!-- <div class="frmDiv">
+    </div>
+    <div class="frmDiv">
       <ion-item>
         <ion-label position="stacked">Upload image</ion-label>
         <ion-button (click)="takePhoto()">
@@ -111,5 +120,6 @@
         <ion-img [src]="item.webviewPath"></ion-img>
       </ion-col>
     </ion-row> -->
+    <!-- OPCIONES DE CAMARA  -->
   </form>
 </ion-content>

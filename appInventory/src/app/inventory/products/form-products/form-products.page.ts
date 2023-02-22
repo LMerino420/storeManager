@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
-import { FormGroup, Validator, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 // import { CameraService } from '../../../services/camera.service';
 import { ProductsService } from '../../../services/products.service';
@@ -22,13 +22,13 @@ export class FormProductsPage implements OnInit {
 
   constructor(
     private router: Router,
-    // public cameraService: CameraService,
-    private productService: ProductsService,
-    private categoriesService: CategoriesService,
     private commons: Commons,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    // public cameraService: CameraService,
+    private categoriesService: CategoriesService,
+    private productService: ProductsService
   ) {
-    //* Crear formulario reactivo
+    //* Declarar formulario reactivo
     this.form = this.formBuilder.group({
       prodNombre: ['', [Validators.required]],
       prodPrecio: ['', [Validators.required]],
@@ -43,16 +43,43 @@ export class FormProductsPage implements OnInit {
     await this.getListCategories();
   }
 
-  goBack() {
-    this.router.navigate(['/products']);
-    this.image = '';
-    this.imgUrl = '';
-  }
-
   // TOMAR FOTO DESDE LA CAMARA
   // takePhoto() {
   //   this.cameraService.addNewPhoto();
   // }
+
+  //* ---------------------------------- GETTER INPUTS
+  get codCategoria() {
+    return this.form.get('codCategoria');
+  }
+
+  get prodNombre() {
+    return this.form.get('prodNombre');
+  }
+
+  get prodPrecio() {
+    return this.form.get('prodPrecio');
+  }
+
+  get prodDescripcion() {
+    return this.form.get('prodDescripcion');
+  }
+  //* ---------------------------------- GETTER INPUTS
+
+  //* Regresar a la pagina anterior
+  goBack() {
+    this.router.navigate(['/products']);
+    this.clearForm();
+  }
+
+  //* Limpiar formulario
+  clearForm() {
+    this.codCategoria?.reset();
+    this.prodNombre?.reset();
+    this.prodPrecio?.reset();
+    this.image = '';
+    this.imgUrl = '';
+  }
 
   //* OBTENER LISTA DE CATEGORIAS
   async getListCategories() {
@@ -84,7 +111,12 @@ export class FormProductsPage implements OnInit {
             await this.uploadImage(obj);
           }
         } else {
-          console.log('ERROR');
+          Swal.fire({
+            heightAuto: false,
+            icon: 'error',
+            title: 'Error saving',
+            text: 'An error occurred while saving product!',
+          });
         }
       });
       console.log(this.form.value);
@@ -100,42 +132,41 @@ export class FormProductsPage implements OnInit {
       const reader = new FileReader();
 
       reader.readAsDataURL(file);
-
       reader.onload = (ev: any) => {
         this.imgUrl = ev.target.result;
       };
 
       this.image = file;
-      console.log('image', this.image);
     }
   }
 
   //* METODO PARA SUBIR IMAGEN
   async uploadImage(idProduct: string) {
+    await this.commons.showLoader('Saving product...');
     const formData = new FormData();
     formData.append('file', this.image);
     const data = await this.productService.uploadImage(idProduct, formData);
-    data.subscribe((dt: any) => {
-      console.log('Form data =>', formData);
+    data.subscribe(async (dt: any) => {
+      await this.commons.hideLoader();
       const code = dt.code;
       console.log(dt);
       if (code === 'SUCCESS') {
         Swal.fire({
           heightAuto: false,
           icon: 'success',
-          title: 'File uploaded',
-          text: 'The file has been uploaded correctly!',
+          title: 'Product saved',
+          text: 'Product stored successfully!',
         }).then((res) => {
           if (res) {
-            location.reload();
+            this.clearForm();
           }
         });
       } else {
         Swal.fire({
           heightAuto: false,
           icon: 'error',
-          title: 'File failed to load',
-          text: 'An error occurred while trying to upload the file!',
+          title: 'Error saving',
+          text: 'An error occurred while saving product!',
         });
       }
     });

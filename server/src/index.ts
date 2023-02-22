@@ -2,6 +2,7 @@
 import express, { Application } from 'express';
 import morgan from 'morgan';
 import cors from 'cors';
+import path from 'path';
 
 //* IMPORTACION DE RUTAS
 import indexRoutes from './routes/indexRoutes';
@@ -27,6 +28,12 @@ class Server {
 		this.app.use(express.urlencoded({ extended: false }));
 	}
 
+	//* RUTA PARA CARPETA PUBLICA
+	private publicResource() {
+		const publicPath = path.resolve(__dirname, '../imgProducts');
+		this.app.use('/imgProducts', express.static(publicPath));
+	}
+
 	//* RUTAS PARA EL SERVIDOR
 	routes(): void {
 		this.app.use('/', indexRoutes);
@@ -39,6 +46,7 @@ class Server {
 		this.app.listen(this.app.get('port'), () => {
 			console.log('Server on port [' + this.app.get('port') + ']');
 		});
+		this.publicResource();
 	}
 }
 

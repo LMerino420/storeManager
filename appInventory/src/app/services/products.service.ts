@@ -9,11 +9,18 @@ export class ProductsService {
 
   constructor(private http: HttpClient) {}
 
+  // Subir imagen al servidor y bdo
   uploadImage(id: string, image: any) {
     return this.http.post(`${this.API_URI}/uploadImage/${id}`, image);
   }
 
+  // Crear un nuevo producto
   addProduct(product: any) {
     return this.http.post(`${this.API_URI}/newProduct`, product);
+  }
+
+  // Obtener lista de productos con imagen
+  getProdImages() {
+    return this.http.get(`${this.API_URI}/prodImg`);
   }
 }

@@ -14,6 +14,22 @@
     <ion-label>QTY: {{qty}}</ion-label>
   </div>
 
+  <!-- LIST PRODUCTS -->
+  <div class="listCat">
+    <ion-item lines="none" *ngFor="let item of listProducts">
+      <ion-thumbnail>
+        <img src="http://localhost:3000/{{item.urlIMG}}" />
+      </ion-thumbnail>
+      <ion-label>{{item.prodNombre}}</ion-label>
+      <ion-button class="edit-btn">
+        <ion-icon name="create"></ion-icon>
+      </ion-button>
+      <ion-button class="delete-btn">
+        <ion-icon name="trash"></ion-icon>
+      </ion-button>
+    </ion-item>
+  </div>
+
   <!-- ADD BUTTON -->
   <ion-fab slot="fixed" vertical="bottom" horizontal="end">
     <ion-fab-button (click)="addProduct()">

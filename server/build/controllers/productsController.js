@@ -27,6 +27,7 @@ class ProductsController {
             };
             console.log('fileImg', fileImg);
             if (file) {
+                console.log('file', file);
                 yield database_1.default.query('INSERT INTO imagenes SET ?', [fileImg]);
                 res.json({ code: 'SUCCESS' });
                 return;
@@ -45,6 +46,27 @@ class ProductsController {
                     insertId: query.insertId,
                 },
             });
+        });
+    }
+    //* Obtner productos con imagen
+    getProductsImg(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const query = yield database_1.default.query(`
+			SELECT PRD.prodNombre, PRD.prodPrecio, PRD.prodEstado, IMG.urlIMG
+			FROM productos as PRD
+			INNER JOIN imagenes as IMG
+			ON PRD.codProducto = IMG.codProducto`);
+            if (query.length > 0) {
+                res.json({
+                    code: 'SUCCESS',
+                    object: query,
+                });
+            }
+            else {
+                res.json({
+                    code: 'NO_DATA',
+                });
+            }
         });
     }
 }

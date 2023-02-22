@@ -7,6 +7,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const morgan_1 = __importDefault(require("morgan"));
 const cors_1 = __importDefault(require("cors"));
+const path_1 = __importDefault(require("path"));
 //* IMPORTACION DE RUTAS
 const indexRoutes_1 = __importDefault(require("./routes/indexRoutes"));
 const categoriesRoutes_1 = __importDefault(require("./routes/categoriesRoutes"));
@@ -26,6 +27,11 @@ class Server {
         this.app.use(express_1.default.json());
         this.app.use(express_1.default.urlencoded({ extended: false }));
     }
+    //* RUTA PARA CARPETA PUBLICA
+    publicResource() {
+        const publicPath = path_1.default.resolve(__dirname, '../imgProducts');
+        this.app.use('/imgProducts', express_1.default.static(publicPath));
+    }
     //* RUTAS PARA EL SERVIDOR
     routes() {
         this.app.use('/', indexRoutes_1.default);
@@ -37,6 +43,7 @@ class Server {
         this.app.listen(this.app.get('port'), () => {
             console.log('Server on port [' + this.app.get('port') + ']');
         });
+        this.publicResource();
     }
 }
 const server = new Server();
