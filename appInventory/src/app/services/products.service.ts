@@ -23,4 +23,9 @@ export class ProductsService {
   getProdImages() {
     return this.http.get(`${this.API_URI}/prodImg`);
   }
+
+  // Prueba para eliminar un producto y su imagen
+  deleteProduct(id: string) {
+    return this.http.get(`${this.API_URI}/deleteImg/${id}`);
+  }
 }

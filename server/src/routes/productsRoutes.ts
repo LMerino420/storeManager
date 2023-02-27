@@ -32,6 +32,7 @@ class ProductsRoutes {
 		//* RUTAS PARA EL MANTENIMIENTO DE LA TABLA DE PRODUCTOS
 		this.router.post('/newProduct', productsController.create);
 		this.router.get('/prodImg', productsController.getProductsImg);
+		this.router.get('/deleteImg/:id', productsController.deleteImg);
 
 		// this.router.get('/listCategory', categoriesController.getList);
 		// this.router.get('/category/:id', categoriesController.getOne);

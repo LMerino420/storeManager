@@ -23,14 +23,17 @@ export class ProductsPage implements OnInit {
     await this.getListProducts();
   }
 
+  //* Redireccionar a home
   goHome() {
     this.router.navigate(['/home']);
   }
 
+  //* Redireccionar a formulario de productos
   addProduct() {
     this.router.navigate(['/products/form-products']);
   }
 
+  //* Obtener lista de productos
   async getListProducts() {
     const data = await this.productsService.getProdImages();
     data.subscribe(async (dt: any) => {
@@ -43,6 +46,15 @@ export class ProductsPage implements OnInit {
       } else {
         console.log('ERROR');
       }
+    });
+  }
+
+  // Eliminar producto
+  async testDelete(id: string) {
+    console.log('id =>', id);
+    const data = await this.productsService.deleteProduct(id);
+    data.subscribe(async (dt: any) => {
+      console.log('dt =>', dt);
     });
   }
 }

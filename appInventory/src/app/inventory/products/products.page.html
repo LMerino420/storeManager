@@ -20,11 +20,15 @@
       <ion-thumbnail>
         <img src="http://localhost:3000/{{item.urlIMG}}" />
       </ion-thumbnail>
-      <ion-label>{{item.prodNombre}}</ion-label>
+      <ion-label>
+        <h3>{{item.prodNombre}}</h3>
+        <p>ST: {{item.prodEstado}}</p>
+      </ion-label>
+      <ion-label class="currency">{{item.prodPrecio | currency}}</ion-label>
       <ion-button class="edit-btn">
         <ion-icon name="create"></ion-icon>
       </ion-button>
-      <ion-button class="delete-btn">
+      <ion-button (click)="testDelete(item.codProducto)" class="delete-btn">
         <ion-icon name="trash"></ion-icon>
       </ion-button>
     </ion-item>

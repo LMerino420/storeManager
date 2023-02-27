@@ -14,6 +14,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.productsController = void 0;
 const database_1 = __importDefault(require("../database"));
+const fs_1 = __importDefault(require("fs"));
+const path_1 = __importDefault(require("path"));
 class ProductsController {
     constructor() {
         //* Subir imagen del producto e insertarlo a la tabla
@@ -52,7 +54,7 @@ class ProductsController {
     getProductsImg(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const query = yield database_1.default.query(`
-			SELECT PRD.prodNombre, PRD.prodPrecio, PRD.prodEstado, IMG.urlIMG
+			SELECT PRD.codProducto, PRD.prodNombre, PRD.prodPrecio, PRD.prodEstado, IMG.urlIMG
 			FROM productos as PRD
 			INNER JOIN imagenes as IMG
 			ON PRD.codProducto = IMG.codProducto`);
@@ -66,6 +68,27 @@ class ProductsController {
                 res.json({
                     code: 'NO_DATA',
                 });
+            }
+        });
+    }
+    //* Eliminar imagen de tabla de imagenes
+    deleteImg(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const { id } = req.params;
+            const query1 = yield database_1.default.query('SELECT * FROM imagenes WHERE codProducto =?', [id]);
+            if (query1.length > 0) {
+                fs_1.default.unlink(path_1.default.resolve(query1[0].urlImg), (rs) => __awaiter(this, void 0, void 0, function* () {
+                    const query2 = yield database_1.default.query('DELETE FROM imagenes WHERE codProducto =?', [id]);
+                    if (query2.affectedRows > 0) {
+                        const query3 = yield database_1.default.query('DELETE FROM productos WHERE codProducto =?', [id]);
+                        if (query3.affectedRows > 0) {
+                            return res.json({ code: 'SUCCESS' });
+                        }
+                    }
+                }));
+            }
+            else {
+                res.json({ code: 'ERROR' });
             }
         });
     }
