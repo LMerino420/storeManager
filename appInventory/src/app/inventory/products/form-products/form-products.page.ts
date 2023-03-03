@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { IonAccordionGroup } from '@ionic/angular';
 
 // import { CameraService } from '../../../services/camera.service';
 import { ProductsService } from '../../../services/products.service';
@@ -14,7 +15,13 @@ import { Commons } from '../../../commons';
   styleUrls: ['./form-products.page.scss'],
 })
 export class FormProductsPage implements OnInit {
-  form: FormGroup;
+  @ViewChild('accordionGroup', { static: true }) accordionGroup:
+    | IonAccordionGroup
+    | any;
+
+  formProd: FormGroup;
+  formCost: FormGroup;
+  prodId: string | null = null;
 
   listCategories: any = [];
   image: string = '';
@@ -28,13 +35,22 @@ export class FormProductsPage implements OnInit {
     private categoriesService: CategoriesService,
     private productService: ProductsService
   ) {
-    //* Declarar formulario reactivo
-    this.form = this.formBuilder.group({
+    //* Declarar formulario para productos
+    this.formProd = this.formBuilder.group({
       prodNombre: ['', [Validators.required]],
-      prodPrecio: ['', [Validators.required]],
       prodDescripcion: [''],
       codCategoria: ['', [Validators.required]],
       prodEstado: ['STOCK'],
+    });
+    //* Declarar formulario para costos del producto
+    this.formCost = this.formBuilder.group({
+      // codProducto: [this.prodId],
+      codProducto: [1],
+      prodPrecio: ['', [Validators.required]],
+      costoLiberacion: [''],
+      costoEnvio: [''],
+      costoRepuestos: [''],
+      costoReparacion: [''],
     });
   }
 
@@ -48,38 +64,78 @@ export class FormProductsPage implements OnInit {
   //   this.cameraService.addNewPhoto();
   // }
 
-  //* ---------------------------------- GETTER INPUTS
+  //* ---------------------------------- GETTER INPUTS formProd
   get codCategoria() {
-    return this.form.get('codCategoria');
+    return this.formProd.get('codCategoria');
   }
 
   get prodNombre() {
-    return this.form.get('prodNombre');
-  }
-
-  get prodPrecio() {
-    return this.form.get('prodPrecio');
+    return this.formProd.get('prodNombre');
   }
 
   get prodDescripcion() {
-    return this.form.get('prodDescripcion');
+    return this.formProd.get('prodDescripcion');
   }
-  //* ---------------------------------- GETTER INPUTS
+  //* ---------------------------------- GETTER INPUTS formCost
+  get prodPrecio() {
+    return this.formCost.get('prodPrecio');
+  }
+
+  get costoLiberacion() {
+    return this.formCost.get('costoLiberacion');
+  }
+
+  get costoEnvio() {
+    return this.formCost.get('costoEnvio');
+  }
+
+  get costoRepuestos() {
+    return this.formCost.get('costoRepuestos');
+  }
+
+  get costoReparacion() {
+    return this.formCost.get('costoReparacion');
+  }
 
   //* Regresar a la pagina anterior
   goBack() {
     this.router.navigate(['/products']);
-    this.clearForm();
+    this.clearFormProd();
   }
 
-  //* Limpiar formulario
-  clearForm() {
+  //* Limpiar formulario de informacin del producto
+  clearFormProd() {
     this.codCategoria?.reset();
     this.prodNombre?.reset();
-    this.prodPrecio?.reset();
+    this.prodDescripcion?.reset();
+    this.clearImg();
+  }
+
+  //* Limpiar imagen
+  clearImg() {
     this.image = '';
     this.imgUrl = '';
   }
+
+  //* Limpiar formulario de costos del producto
+  clearFormCosts() {
+    this.prodId = null;
+    this.prodPrecio?.reset();
+    this.costoLiberacion?.reset();
+    this.costoEnvio?.reset();
+    this.costoRepuestos?.reset();
+    this.costoReparacion?.reset();
+  }
+
+  //* Toggle accordion
+  toggleAccordion = () => {
+    const nativeEl = this.accordionGroup;
+    if (nativeEl.value === 'second') {
+      nativeEl.value = 'first';
+    } else {
+      nativeEl.value = 'second';
+    }
+  };
 
   //* OBTENER LISTA DE CATEGORIAS
   async getListCategories() {
@@ -99,14 +155,13 @@ export class FormProductsPage implements OnInit {
 
   //* CREAR NUEVO PRODUCTO
   async addProduct() {
-    if (this.form.valid) {
-      let params = this.form.value;
+    if (this.formProd.valid) {
+      let params = this.formProd.value;
       const data = await this.productService.addProduct(params);
       data.subscribe(async (dt: any) => {
         const code = dt.code;
         if (code === 'SUCCESS') {
           const obj = dt.object.insertId;
-          console.log('OBJ =>', obj);
           if (obj) {
             await this.uploadImage(obj);
           }
@@ -119,9 +174,9 @@ export class FormProductsPage implements OnInit {
           });
         }
       });
-      console.log(this.form.value);
+      console.log(this.formProd.value);
     } else {
-      this.form.markAllAsTouched();
+      this.formProd.markAllAsTouched();
     }
   }
 
@@ -158,7 +213,9 @@ export class FormProductsPage implements OnInit {
           text: 'Product stored successfully!',
         }).then((res) => {
           if (res) {
-            this.clearForm();
+            this.prodId = idProduct;
+            console.log('prodId =>', this.prodId);
+            this.toggleAccordion();
           }
         });
       } else {
@@ -170,5 +227,26 @@ export class FormProductsPage implements OnInit {
         });
       }
     });
+  }
+
+  //* METODO PARA GUARDAR LOS COSTOS DEL PRODUCTO
+  async addCost() {
+    if (this.formCost.valid) {
+      let params = this.formCost.value;
+      const data = await this.productService.addCosts(params);
+      data.subscribe(async (dt: any) => {
+        const code = dt.code;
+        if (code === 'SUCCESS') {
+          const msj = 'Data saved successfully.';
+          await this.commons.successAlert(msj);
+          this.clearFormCosts();
+        } else {
+          await this.commons.errorAlert();
+        }
+      });
+      console.log(params);
+    } else {
+      this.formCost.markAllAsTouched();
+    }
   }
 }

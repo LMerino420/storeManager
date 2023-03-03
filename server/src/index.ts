@@ -17,6 +17,7 @@ class Server {
 		this.app = express();
 		this.config();
 		this.routes();
+		this.publicResource();
 	}
 
 	//* CONFIGURACION DE MODULOS , LIBRERIAS Y PUERTOS
@@ -46,7 +47,6 @@ class Server {
 		this.app.listen(this.app.get('port'), () => {
 			console.log('Server on port [' + this.app.get('port') + ']');
 		});
-		this.publicResource();
 	}
 }
 

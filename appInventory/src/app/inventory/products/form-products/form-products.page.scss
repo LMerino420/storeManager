@@ -1,28 +1,14 @@
-form {
-  background-color: white;
-  width: 100vw;
-  height: 100%;
-  .frmDiv {
-    padding-left: 20px;
-    padding-right: 20px;
-    margin-bottom: 5px;
-    ion-label {
-      color: #020540;
-    }
-  }
-  ion-select,
-  ion-input,
-  ion-textarea {
-    margin-top: 6px;
-    border-bottom: 2px solid #020540;
-    &.is-invalid {
-      --placeholder-color: red;
-      --placeholder-opacity: 1;
-    }
-  }
+.ion-color-custom {
+  --ion-color-base: #023059;
+  --ion-color-contrast: white;
+}
+
+.frmDiv {
+  margin-bottom: 10px;
 }
 
 .imgDiv {
+  margin-top: 10px;
   display: flex;
   justify-content: center;
   ion-card {
@@ -31,6 +17,9 @@ form {
     display: flex;
     align-items: center;
     justify-content: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
     .upload {
       display: flex;
       flex-direction: column;

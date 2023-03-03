@@ -10,7 +10,6 @@ CREATE TABLE categorias(
 CREATE TABLE productos(
     codProducto INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
     prodNombre VARCHAR(150),
-    prodPrecio DECIMAL(9,2),
     prodDescripcion VARCHAR(350),
     prodEstado VARCHAR(10),
     codCategoria INT(11),
@@ -24,6 +23,16 @@ CREATE TABLE imagenes(
     urlImg VARCHAR(180),
     imgCreada TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 	FOREIGN KEY (codProducto) REFERENCES productos(codProducto)
+);
+
+CREATE TABLE gastosProducto(
+	codProducto INT(11) NOT NULL,
+    prodPrecio DECIMAL(9,2),
+    costoLiberacion DECIMAL(9,2),
+    costoEnvio DECIMAL(9,2),
+    costoRepuestos DECIMAL(9,2),
+    costoReparacion DECIMAL(9,2),
+    FOREIGN KEY (codProducto) REFERENCES productos(codProducto)
 );
 
 CREATE TABLE clientes(

@@ -16,6 +16,15 @@ class ProductsController {
 		});
 	}
 
+	// Guardar costos del producto
+	public async saveCosts(req: Request, res: Response): Promise<void> {
+		const query = await db.query('INSERT INTO gastosProducto SET ?', [req.body]);
+		console.log(query);
+		res.json({
+			code: 'SUCCESS',
+		});
+	}
+
 	//* Subir imagen del producto e insertarlo a la tabla
 	public uploadImg = async (req: Request, res: Response) => {
 		const { id } = req.params;
@@ -41,10 +50,12 @@ class ProductsController {
 	//* Obtner productos con imagen
 	public async getProductsImg(req: Request, res: Response): Promise<void> {
 		const query = await db.query(`
-			SELECT PRD.codProducto, PRD.prodNombre, PRD.prodPrecio, PRD.prodEstado, IMG.urlIMG
-			FROM productos as PRD
-			INNER JOIN imagenes as IMG
-			ON PRD.codProducto = IMG.codProducto`);
+				SELECT PRD.codProducto, PRD.prodNombre, PRD.prodEstado, IMG.urlIMG, GPROD.prodPrecio
+				FROM productos as PRD
+				INNER JOIN imagenes as IMG
+				ON PRD.codProducto = IMG.codProducto
+				INNER JOIN gastosProducto as GPROD
+				ON PRD.codProducto = GPROD.codProducto`);
 
 		if (query.length > 0) {
 			res.json({

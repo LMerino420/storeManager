@@ -29,7 +29,7 @@
 ion-content {
   --background: #f2f4f4;
   .header {
-    height: 5%;
+    height: 6%;
     display: flex;
     align-items: center;
     background-color: #020540;
@@ -59,4 +59,13 @@ ion-content {
 }
 .delete-btn {
   --background: #e45757;
+}
+
+.btn-div {
+  display: flex;
+  justify-content: center;
+  margin-top: 15px;
+  .primary-btn {
+    --background: #0388a6;
+  }
 }

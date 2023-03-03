@@ -9,14 +9,10 @@ export class ProductsService {
 
   constructor(private http: HttpClient) {}
 
+  //* ----------------------------------------- TABLA DE IMAGENES
   // Subir imagen al servidor y bdo
   uploadImage(id: string, image: any) {
     return this.http.post(`${this.API_URI}/uploadImage/${id}`, image);
-  }
-
-  // Crear un nuevo producto
-  addProduct(product: any) {
-    return this.http.post(`${this.API_URI}/newProduct`, product);
   }
 
   // Obtener lista de productos con imagen
@@ -24,8 +20,19 @@ export class ProductsService {
     return this.http.get(`${this.API_URI}/prodImg`);
   }
 
-  // Prueba para eliminar un producto y su imagen
+  // Eliminar un producto y su imagen
   deleteProduct(id: string) {
     return this.http.get(`${this.API_URI}/deleteImg/${id}`);
+  }
+
+  //* ----------------------------------------- TABLA DE PRODUCTOS
+  // Crear un nuevo producto
+  addProduct(product: any) {
+    return this.http.post(`${this.API_URI}/newProduct`, product);
+  }
+
+  //* ----------------------------------------- TABLA DE GASTOSPRODUCTO
+  addCosts(cost: any) {
+    return this.http.post(`${this.API_URI}/saveCosts`, cost);
   }
 }

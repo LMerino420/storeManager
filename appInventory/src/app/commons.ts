@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { LoadingController } from '@ionic/angular';
+import Swal from 'sweetalert2';
 
 @Injectable({
   providedIn: 'root',
@@ -28,5 +29,25 @@ export class Commons {
     setTimeout(async () => {
       this.loader = await this.loadingCtrl.dismiss();
     }, 100);
+  }
+
+  //* Mostrar success alert
+  async successAlert(message = 'Successful operation') {
+    Swal.fire({
+      heightAuto: false,
+      icon: 'success',
+      title: 'Success!',
+      text: message,
+    });
+  }
+
+  //* Mostrar error alert
+  async errorAlert(message = 'An error has occurred') {
+    Swal.fire({
+      heightAuto: false,
+      icon: 'error',
+      title: 'Error!',
+      text: message,
+    });
   }
 }

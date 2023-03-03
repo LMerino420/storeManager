@@ -50,14 +50,26 @@ class ProductsController {
             });
         });
     }
+    // Guardar costos del producto
+    saveCosts(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const query = yield database_1.default.query('INSERT INTO gastosProducto SET ?', [req.body]);
+            console.log(query);
+            res.json({
+                code: 'SUCCESS',
+            });
+        });
+    }
     //* Obtner productos con imagen
     getProductsImg(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const query = yield database_1.default.query(`
-			SELECT PRD.codProducto, PRD.prodNombre, PRD.prodPrecio, PRD.prodEstado, IMG.urlIMG
-			FROM productos as PRD
-			INNER JOIN imagenes as IMG
-			ON PRD.codProducto = IMG.codProducto`);
+				SELECT PRD.codProducto, PRD.prodNombre, PRD.prodEstado, IMG.urlIMG, GPROD.prodPrecio
+				FROM productos as PRD
+				INNER JOIN imagenes as IMG
+				ON PRD.codProducto = IMG.codProducto
+				INNER JOIN gastosProducto as GPROD
+				ON PRD.codProducto = GPROD.codProducto`);
             if (query.length > 0) {
                 res.json({
                     code: 'SUCCESS',

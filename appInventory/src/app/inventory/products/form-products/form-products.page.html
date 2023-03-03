@@ -9,117 +9,176 @@
     <ion-label>Add product</ion-label>
   </div>
 
-  <!-- FORMULARIO -->
-  <form [formGroup]="form" (ngSubmit)="addProduct()">
-    <!-- Selector de categorias -->
-    <div class="frmDiv">
-      <ion-item lines="none">
-        <ion-label position="stacked">Category</ion-label>
-        <ion-select
-          interface="popover"
-          placeholder="Select a category"
-          formControlName="codCategoria"
-          [class.is-invalid]="codCategoria!.touched && codCategoria!.invalid"
-        >
-          <ion-select-option
-            *ngFor="let item of listCategories"
-            [value]="item.codCategoria"
-          >
-            {{item.categNombre}}
-          </ion-select-option>
-        </ion-select>
+  <!-- PRUEBA DE ACORDION -->
+  <ion-accordion-group value="first" #accordionGroup>
+    <!-- SECCION DE LA INFORMACION DEL PRODUCTO -->
+    <ion-accordion value="first" class="expanded">
+      <ion-item slot="header" color="custom">
+        <ion-label>Product information</ion-label>
       </ion-item>
-    </div>
-    <!-- Input de nombre del producto -->
-    <div class="frmDiv">
-      <ion-item lines="none">
-        <ion-label position="stacked">Name</ion-label>
-        <ion-input
-          formControlName="prodNombre"
-          placeholder="Product name"
-          [class.is-invalid]="prodNombre!.touched && prodNombre!.invalid"
-        ></ion-input>
-      </ion-item>
-    </div>
-    <!-- Input del precio del producto -->
-    <div class="frmDiv">
-      <ion-item lines="none">
-        <ion-label position="stacked">Price</ion-label>
-        <ion-input
-          type="number"
-          formControlName="prodPrecio"
-          placeholder="0.00"
-          [class.is-invalid]="prodPrecio!.touched && prodPrecio!.invalid"
-        ></ion-input>
-      </ion-item>
-    </div>
-    <!-- Textarea de la descripcion del producto -->
-    <div class="frmDiv">
-      <ion-item lines="none">
-        <ion-label position="stacked">Description</ion-label>
-        <ion-textarea
-          formControlName="prodDescripcion"
-          placeholder="Write an optional description"
-        ></ion-textarea>
-      </ion-item>
-    </div>
-    <!-- Contenedor para subir la imagen del producto -->
-    <div class="imgDiv">
-      <ion-card
-        style="background-image: url('{{imgUrl}}');background-size: contain;background-repeat: no-repeat;background-position: center;"
-      >
-        <ion-card-content>
-          <div class="upload" *ngIf="imgUrl === ''">
-            <ion-icon
-              name="add"
-              onclick="document.getElementById('getFile').click()"
-            ></ion-icon>
-            <input
-              type="file"
-              id="getFile"
-              (change)="selectImg($event)"
-              style="display: none"
-            />
-            <ion-label>Upload image</ion-label>
+      <div class="ion-padding" slot="content">
+        <!-- FORM ADD PRODUCT -->
+        <form [formGroup]="formProd" (ngSubmit)="addProduct()">
+          <!-- Selector de categorias -->
+          <div class="frmDiv">
+            <ion-item fill="outline">
+              <ion-label position="floating">Category</ion-label>
+              <ion-select
+                interface="popover"
+                formControlName="codCategoria"
+                [class.is-invalid]="codCategoria!.touched && codCategoria!.invalid"
+              >
+                <ion-select-option
+                  *ngFor="let item of listCategories"
+                  [value]="item.codCategoria"
+                >
+                  {{item.categNombre}}
+                </ion-select-option>
+              </ion-select>
+            </ion-item>
           </div>
-        </ion-card-content>
-        <div class="delete" *ngIf="imgUrl != ''">
-          <ion-icon name="trash"></ion-icon>
-        </div>
-      </ion-card>
-    </div>
-    <!-- Boton para enviar los datos del formulario -->
-    <ion-button type="submit"> Add product </ion-button>
+          <!-- Input de nombre del producto -->
+          <div class="frmDiv">
+            <ion-item fill="outline">
+              <ion-label position="floating">Name</ion-label>
+              <ion-input
+                formControlName="prodNombre"
+                [class.is-invalid]="prodNombre!.touched && prodNombre!.invalid"
+              ></ion-input>
+            </ion-item>
+          </div>
+          <!-- Textarea de la descripcion del producto -->
+          <div class="frmDiv">
+            <ion-item fill="outline">
+              <ion-label position="floating">Description</ion-label>
+              <ion-textarea formControlName="prodDescripcion"></ion-textarea>
+            </ion-item>
+          </div>
+          <!-- Contenedor para subir la imagen del producto -->
+          <div class="imgDiv">
+            <ion-card style="background-image: url('{{imgUrl}}');">
+              <ion-card-content>
+                <div class="upload" *ngIf="imgUrl === ''">
+                  <ion-icon
+                    name="add"
+                    onclick="document.getElementById('getFile').click()"
+                  ></ion-icon>
+                  <input
+                    type="file"
+                    id="getFile"
+                    (change)="selectImg($event)"
+                    style="display: none"
+                  />
+                  <ion-label>Upload image</ion-label>
+                </div>
+              </ion-card-content>
+              <div class="delete" *ngIf="imgUrl != ''">
+                <ion-icon name="trash" (click)="clearImg()"></ion-icon>
+              </div>
+            </ion-card>
+          </div>
+          <!-- Boton para enviar los datos del formulario -->
+          <div class="btn-div">
+            <ion-button type="submit" class="primary-btn">
+              Save product
+            </ion-button>
+          </div>
 
-    <!-- OPCIONES DE CAMARA  -->
-    <!-- <div class="form-goup">
-      <ion-label>Upload file...</ion-label>
-      <input
-        class="form-control-field"
-        type="file"
-        name="image"
-        accept="image/*"
-        (change)="selectImg($event)"
-      />
-      <ion-button type="submit"> upload </ion-button>
-    </div>
-    <div class="row">
-      <ion-img [src]="imgUrl"></ion-img>
-    </div>
-    <div class="frmDiv">
-      <ion-item>
-        <ion-label position="stacked">Upload image</ion-label>
-        <ion-button (click)="takePhoto()">
-          <ion-icon name="camera"></ion-icon>
-        </ion-button>
-        <ion-button (click)="testUpload()"> Click me </ion-button>
+          <!-- OPCIONES DE CAMARA  -->
+          <!-- <div class="form-goup">
+            <ion-label>Upload file...</ion-label>
+            <input
+              class="form-control-field"
+              type="file"
+              name="image"
+              accept="image/*"
+              (change)="selectImg($event)"
+            />
+            <ion-button type="submit"> upload </ion-button>
+          </div>
+          <div class="row">
+            <ion-img [src]="imgUrl"></ion-img>
+          </div>
+          <div class="frmDiv">
+            <ion-item>
+              <ion-label position="stacked">Upload image</ion-label>
+              <ion-button (click)="takePhoto()">
+                <ion-icon name="camera"></ion-icon>
+              </ion-button>
+              <ion-button (click)="testUpload()"> Click me </ion-button>
+            </ion-item>
+          </div> 
+          <ion-row>
+            <ion-col size="6" *ngFor="let item of cameraService.picture; index as i">
+              <ion-img [src]="item.webviewPath"></ion-img>
+            </ion-col>
+          </ion-row> -->
+          <!-- OPCIONES DE CAMARA  -->
+        </form>
+        <!-- FORM ADD PRODUCT -->
+      </div>
+    </ion-accordion>
+    <!-- SECCION DE LOS GASTOS DEL PRODUCTO -->
+    <ion-accordion value="second">
+      <ion-item slot="header" color="custom">
+        <ion-label>Product costs </ion-label>
       </ion-item>
-    </div> 
-    <ion-row>
-      <ion-col size="6" *ngFor="let item of cameraService.picture; index as i">
-        <ion-img [src]="item.webviewPath"></ion-img>
-      </ion-col>
-    </ion-row> -->
-    <!-- OPCIONES DE CAMARA  -->
-  </form>
+      <div class="ion-padding" slot="content">
+        <!-- FORM PRODUCT COST -->
+        <form [formGroup]="formCost" (ngSubmit)="addCost()">
+          <!-- Input de costo del producto -->
+          <div class="frmDiv">
+            <ion-item fill="outline">
+              <ion-label position="floating">Product cost</ion-label>
+              <ion-input formControlName="prodPrecio" type="number"></ion-input>
+            </ion-item>
+          </div>
+          <!-- Input de costo de liberacion -->
+          <div class="frmDiv">
+            <ion-item fill="outline">
+              <ion-label position="floating">Unlocking</ion-label>
+              <ion-input
+                formControlName="costoLiberacion"
+                type="number"
+              ></ion-input>
+            </ion-item>
+          </div>
+          <!-- Input de costo de repuestos -->
+          <div class="frmDiv">
+            <ion-item fill="outline">
+              <ion-label position="floating">Spare parts</ion-label>
+              <ion-input
+                formControlName="costoRepuestos"
+                type="number"
+              ></ion-input>
+            </ion-item>
+          </div>
+          <!-- Input de costo del reparacion -->
+          <div class="frmDiv">
+            <ion-item fill="outline">
+              <ion-label position="floating">Repairs</ion-label>
+              <ion-input
+                formControlName="costoReparacion"
+                type="number"
+              ></ion-input>
+            </ion-item>
+          </div>
+          <!-- Input de costo del envio -->
+          <div class="frmDiv">
+            <ion-item fill="outline">
+              <ion-label position="floating">Shipping</ion-label>
+              <ion-input formControlName="costoEnvio" type="number"></ion-input>
+            </ion-item>
+          </div>
+          <!-- Boton para enviar los datos del formulario -->
+          <div class="btn-div">
+            <ion-button type="submit" class="primary-btn">
+              Save costs
+            </ion-button>
+          </div>
+        </form>
+        <!-- FORM PRODUCT COST -->
+      </div>
+    </ion-accordion>
+  </ion-accordion-group>
 </ion-content>
