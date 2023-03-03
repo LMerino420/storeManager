@@ -107,7 +107,21 @@ export class FormProductsPage implements OnInit {
     this.clearFormCosts();
   }
 
-  //* Limpiar formulario de informacin del producto
+  //* Deshabilitar inputs de formulario de informacion del producto
+  disableFormProd() {
+    this.codCategoria?.disable();
+    this.prodNombre?.disable();
+    this.prodDescripcion?.disable();
+  }
+
+  //* Habilitar input de formulario de informacion del producto
+  enableFormProd() {
+    this.codCategoria?.enable();
+    this.prodNombre?.enable();
+    this.prodDescripcion?.enable();
+  }
+
+  //* Limpiar formulario de informacion del producto
   clearFormProd() {
     this.codCategoria?.reset();
     this.prodNombre?.reset();
@@ -208,6 +222,7 @@ export class FormProductsPage implements OnInit {
       console.log(dt);
       if (code === 'SUCCESS') {
         this.formCost.controls['codProducto'].setValue(idProduct);
+        this.disableFormProd();
         this.toggleAccordion();
       } else {
         await this.commons.errorAlert(
@@ -229,6 +244,8 @@ export class FormProductsPage implements OnInit {
           await this.commons.successAlert(msj);
           this.clearFormProd();
           this.clearFormCosts();
+          this.enableFormProd();
+          this.toggleAccordion();
         } else {
           await this.commons.errorAlert();
         }
