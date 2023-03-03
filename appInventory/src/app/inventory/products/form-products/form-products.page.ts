@@ -104,6 +104,7 @@ export class FormProductsPage implements OnInit {
   goBack() {
     this.router.navigate(['/products']);
     this.clearFormProd();
+    this.clearFormCosts();
   }
 
   //* Limpiar formulario de informacin del producto
@@ -226,6 +227,7 @@ export class FormProductsPage implements OnInit {
         if (code === 'SUCCESS') {
           const msj = 'Data saved successfully.';
           await this.commons.successAlert(msj);
+          this.clearFormProd();
           this.clearFormCosts();
         } else {
           await this.commons.errorAlert();
