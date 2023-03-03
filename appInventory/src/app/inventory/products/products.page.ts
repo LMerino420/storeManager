@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { ProductsService } from '../../services/products.service';
+import { Commons } from '../../commons';
 
 @Component({
   selector: 'app-products',
@@ -14,7 +15,8 @@ export class ProductsPage implements OnInit {
 
   constructor(
     private router: Router,
-    private productsService: ProductsService
+    private productsService: ProductsService,
+    private commons: Commons
   ) {}
 
   ngOnInit() {}
@@ -35,8 +37,10 @@ export class ProductsPage implements OnInit {
 
   //* Obtener lista de productos
   async getListProducts() {
+    await this.commons.showLoader('Getting products');
     const data = await this.productsService.getProdImages();
     data.subscribe(async (dt: any) => {
+      await this.commons.hideLoader();
       const code = dt.code;
       if (code === 'SUCCESS') {
         const obj = dt.object;
@@ -44,7 +48,7 @@ export class ProductsPage implements OnInit {
         this.listProducts = obj;
         this.qty = obj.length;
       } else {
-        console.log('ERROR');
+        await this.commons.infoAlert('No registered products found!');
       }
     });
   }

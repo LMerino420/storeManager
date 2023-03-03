@@ -50,4 +50,18 @@ export class Commons {
       text: message,
     });
   }
+
+  //* Mostar info alert
+  async infoAlert(message: string) {
+    if (message) {
+      Swal.fire({
+        heightAuto: false,
+        icon: 'info',
+        title: 'Info!',
+        text: message,
+      });
+    } else {
+      console.log('No se ha establecido un mensaje para la alerta');
+    }
+  }
 }

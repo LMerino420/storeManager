@@ -21,7 +21,6 @@ export class FormProductsPage implements OnInit {
 
   formProd: FormGroup;
   formCost: FormGroup;
-  prodId: string | null = null;
 
   listCategories: any = [];
   image: string = '';
@@ -44,8 +43,8 @@ export class FormProductsPage implements OnInit {
     });
     //* Declarar formulario para costos del producto
     this.formCost = this.formBuilder.group({
-      // codProducto: [this.prodId],
-      codProducto: [1],
+      // codProducto: [1],
+      codProducto: ['', [Validators.required]],
       prodPrecio: ['', [Validators.required]],
       costoLiberacion: [''],
       costoEnvio: [''],
@@ -77,6 +76,10 @@ export class FormProductsPage implements OnInit {
     return this.formProd.get('prodDescripcion');
   }
   //* ---------------------------------- GETTER INPUTS formCost
+  get codProducto() {
+    return this.formCost.get('codProducto');
+  }
+
   get prodPrecio() {
     return this.formCost.get('prodPrecio');
   }
@@ -119,7 +122,7 @@ export class FormProductsPage implements OnInit {
 
   //* Limpiar formulario de costos del producto
   clearFormCosts() {
-    this.prodId = null;
+    this.codProducto?.reset();
     this.prodPrecio?.reset();
     this.costoLiberacion?.reset();
     this.costoEnvio?.reset();
@@ -155,7 +158,7 @@ export class FormProductsPage implements OnInit {
 
   //* CREAR NUEVO PRODUCTO
   async addProduct() {
-    if (this.formProd.valid) {
+    if (this.formProd.valid && this.image && this.imgUrl) {
       let params = this.formProd.value;
       const data = await this.productService.addProduct(params);
       data.subscribe(async (dt: any) => {
@@ -166,17 +169,14 @@ export class FormProductsPage implements OnInit {
             await this.uploadImage(obj);
           }
         } else {
-          Swal.fire({
-            heightAuto: false,
-            icon: 'error',
-            title: 'Error saving',
-            text: 'An error occurred while saving product!',
-          });
+          await this.commons.errorAlert(
+            'An error occurred while saving product!'
+          );
         }
       });
-      console.log(this.formProd.value);
     } else {
       this.formProd.markAllAsTouched();
+      await this.commons.infoAlert('There are incomplete fields!');
     }
   }
 
@@ -206,25 +206,12 @@ export class FormProductsPage implements OnInit {
       const code = dt.code;
       console.log(dt);
       if (code === 'SUCCESS') {
-        Swal.fire({
-          heightAuto: false,
-          icon: 'success',
-          title: 'Product saved',
-          text: 'Product stored successfully!',
-        }).then((res) => {
-          if (res) {
-            this.prodId = idProduct;
-            console.log('prodId =>', this.prodId);
-            this.toggleAccordion();
-          }
-        });
+        this.formCost.controls['codProducto'].setValue(idProduct);
+        this.toggleAccordion();
       } else {
-        Swal.fire({
-          heightAuto: false,
-          icon: 'error',
-          title: 'Error saving',
-          text: 'An error occurred while saving product!',
-        });
+        await this.commons.errorAlert(
+          'An error occurred while saving the product image!'
+        );
       }
     });
   }
