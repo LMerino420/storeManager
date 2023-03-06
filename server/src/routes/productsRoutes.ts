@@ -33,11 +33,8 @@ class ProductsRoutes {
 
 		//* RUTAS PARA EL MANTENIMIENTO DE LA TABLA DE GASTOSPRODUCTO
 		this.router.post('/saveCosts', productsController.saveCosts);
-
-		// this.router.get('/listCategory', categoriesController.getList);
-		// this.router.get('/category/:id', categoriesController.getOne);
-		// this.router.put('/updateCategory/:id', categoriesController.update);
-		// this.router.delete('/deleteCategory/:id', categoriesController.delete);
+		this.router.get('/getProductDetail/:id', productsController.getProductDetail);
+		this.router.put('/updateCosts/:id', productsController.updateCosts);
 	}
 }
 

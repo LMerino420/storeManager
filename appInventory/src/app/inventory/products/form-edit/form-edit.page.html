@@ -1,0 +1,90 @@
+<ion-content>
+  <!-- HEADER -->
+  <div class="header">
+    <ion-buttons slot="start" class="menu_btn">
+      <ion-button (click)="goBack()">
+        <ion-icon name="arrow-back"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-label>Edit product</ion-label>
+  </div>
+
+  <!-- DETALLES DEL PRODUCTO FIJOS -->
+  <div class="prod-info">
+    <div class="img-prod">
+      <ion-card>
+        <img src="http://localhost:3000/{{detailProduct.urlIMG}}" />
+      </ion-card>
+    </div>
+    <div class="detail-prod">
+      <div class="info-section">
+        <ion-label class="info-title">Name:</ion-label>
+        <ion-label>{{detailProduct.prodNombre}}</ion-label>
+      </div>
+      <div class="info-section">
+        <ion-label class="info-title">State:</ion-label>
+        <ion-label>{{detailProduct.prodEstado}}</ion-label>
+      </div>
+      <div class="info-section">
+        <ion-label class="info-title">Cost:</ion-label>
+        <ion-label>{{detailProduct.prodPrecio | currency}}</ion-label>
+      </div>
+    </div>
+  </div>
+  <!-- DETALLES DEL PRODUCTO EDITABLES -->
+  <ion-accordion-group value="first">
+    <ion-accordion value="first">
+      <ion-item slot="header" color="custom">
+        <ion-label>Extra costs</ion-label>
+      </ion-item>
+      <div class="ion-padding" slot="content">
+        <!-- FORM PRODUCT COST -->
+        <form [formGroup]="formCost" (ngSubmit)="updateCosts()">
+          <!-- Input de costo de liberacion -->
+          <div class="frmDiv">
+            <ion-item fill="outline">
+              <ion-label position="floating">Unlocking</ion-label>
+              <ion-input
+                formControlName="costoLiberacion"
+                type="number"
+              ></ion-input>
+            </ion-item>
+          </div>
+          <!-- Input de costo de repuestos -->
+          <div class="frmDiv">
+            <ion-item fill="outline">
+              <ion-label position="floating">Spare parts</ion-label>
+              <ion-input
+                formControlName="costoRepuestos"
+                type="number"
+              ></ion-input>
+            </ion-item>
+          </div>
+          <!-- Input de costo del reparacion -->
+          <div class="frmDiv">
+            <ion-item fill="outline">
+              <ion-label position="floating">Repairs</ion-label>
+              <ion-input
+                formControlName="costoReparacion"
+                type="number"
+              ></ion-input>
+            </ion-item>
+          </div>
+          <!-- Input de costo del envio -->
+          <div class="frmDiv">
+            <ion-item fill="outline">
+              <ion-label position="floating">Shipping</ion-label>
+              <ion-input formControlName="costoEnvio" type="number"></ion-input>
+            </ion-item>
+          </div>
+          <!-- Boton para enviar los datos del formulario -->
+          <div class="btn-div">
+            <ion-button type="submit" class="primary-btn">
+              Save changes
+            </ion-button>
+          </div>
+        </form>
+      </div>
+    </ion-accordion>
+  </ion-accordion-group>
+</ion-content>

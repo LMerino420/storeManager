@@ -20,19 +20,30 @@ export class ProductsService {
     return this.http.get(`${this.API_URI}/prodImg`);
   }
 
-  // Eliminar un producto y su imagen
-  deleteProduct(id: string) {
-    return this.http.get(`${this.API_URI}/deleteImg/${id}`);
-  }
-
   //* ----------------------------------------- TABLA DE PRODUCTOS
   // Crear un nuevo producto
   addProduct(product: any) {
     return this.http.post(`${this.API_URI}/newProduct`, product);
   }
 
+  // Eliminar un producto y su imagen
+  deleteProduct(id: string) {
+    return this.http.get(`${this.API_URI}/deleteImg/${id}`);
+  }
+
   //* ----------------------------------------- TABLA DE GASTOSPRODUCTO
+  // Añadir los costos del producto
   addCosts(cost: any) {
     return this.http.post(`${this.API_URI}/saveCosts`, cost);
+  }
+
+  // Obtener los costos del producto
+  getProductDetail(id: string) {
+    return this.http.get(`${this.API_URI}/getProductDetail/${id}`);
+  }
+
+  // Actualizar los costos del producto
+  updateCosts(id: string, costs: any) {
+    return this.http.put(`${this.API_URI}/updateCosts/${id}`, costs);
   }
 }

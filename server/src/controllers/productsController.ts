@@ -5,7 +5,7 @@ import fs from 'fs';
 import path from 'path';
 
 class ProductsController {
-	//* Nueva producto
+	//* Nuevo producto
 	public async create(req: Request, res: Response): Promise<void> {
 		const query = await db.query('INSERT INTO productos SET ?', [req.body]);
 		res.json({
@@ -16,7 +16,7 @@ class ProductsController {
 		});
 	}
 
-	// Guardar costos del producto
+	//* Guardar costos del producto
 	public async saveCosts(req: Request, res: Response): Promise<void> {
 		const query = await db.query('INSERT INTO gastosProducto SET ?', [req.body]);
 		console.log(query);
@@ -40,11 +40,9 @@ class ProductsController {
 		if (file) {
 			console.log('file', file);
 			await db.query('INSERT INTO imagenes SET ?', [fileImg]);
-			res.json({ code: 'SUCCESS' });
-			return;
+			return res.json({ code: 'SUCCESS' });
 		}
-		res.json({ code: 'NO_FILE' });
-		return;
+		return res.json({ code: 'NO_FILE' });
 	};
 
 	//* Obtner productos con imagen
@@ -80,11 +78,56 @@ class ProductsController {
 					const query3 = await db.query('DELETE FROM productos WHERE codProducto =?', [id]);
 					if (query3.affectedRows > 0) {
 						return res.json({ code: 'SUCCESS' });
+					} else {
+						res.json({ code: 'ERROR' });
 					}
 				}
 			});
 		} else {
-			res.json({ code: 'ERROR' });
+			res.json({ code: 'NO_DATA' });
+		}
+	}
+
+	//* Obtener el detalle de producto para editar
+	public async getProductDetail(req: Request, res: Response): Promise<void> {
+		const { id } = req.params;
+		const query = await db.query(
+			`
+			SELECT PRD.codProducto, PRD.prodNombre, PRD.prodEstado, IMG.urlIMG, GPROD.prodPrecio, GPROD.costoLiberacion,
+					GPROD.costoEnvio, GPROD.costoRepuestos, GPROD.costoReparacion
+			FROM productos as PRD
+			INNER JOIN imagenes as IMG
+			ON PRD.codProducto = IMG.codProducto
+			INNER JOIN gastosProducto as GPROD
+			ON PRD.codProducto = GPROD.codProducto
+			WHERE PRD.codProducto = ?`,
+			[id],
+		);
+		if (query.length > 0) {
+			res.json({
+				code: 'SUCCESS',
+				object: query,
+			});
+		} else {
+			res.json({
+				code: 'NO_DATA',
+			});
+		}
+	}
+
+	//* Actualizar los costos del producto
+	public async updateCosts(req: Request, res: Response): Promise<void> {
+		const { id } = req.params;
+		const query = await db.query('UPDATE gastosProducto SET ? WHERE codProducto = ?', [req.body, id]);
+		console.log(query.affectedRows);
+		if (query.affectedRows > 0) {
+			res.json({
+				code: 'SUCCESS',
+			});
+		} else {
+			res.json({
+				code: 'ERROR',
+			});
 		}
 	}
 }

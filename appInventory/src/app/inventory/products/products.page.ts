@@ -35,6 +35,12 @@ export class ProductsPage implements OnInit {
     this.router.navigate(['/products/form-products']);
   }
 
+  //* Redireccionar a formulario de editar productos
+  editProduct(id: string) {
+    console.log('id prod =>', id);
+    this.router.navigate(['/products/form-edit/']);
+  }
+
   //* Obtener lista de productos
   async getListProducts() {
     await this.commons.showLoader('Getting products');
@@ -44,7 +50,6 @@ export class ProductsPage implements OnInit {
       const code = dt.code;
       if (code === 'SUCCESS') {
         const obj = dt.object;
-        console.log(obj);
         this.listProducts = obj;
         this.qty = obj.length;
       } else {

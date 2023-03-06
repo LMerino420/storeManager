@@ -23,6 +23,17 @@ ON PRD.codProducto = IMG.codProducto
 INNER JOIN gastosProducto as GPROD
 ON PRD.codProducto = GPROD.codProducto;
 
+/*Obtner datos del producto para editar*/
+SELECT 
+	PRD.codProducto, PRD.prodNombre, PRD.prodEstado, 
+    IMG.urlIMG, GPROD.prodPrecio, GPROD.costoLiberacion,
+    GPROD.costoEnvio, GPROD.costoRepuestos, GPROD.costoReparacion
+FROM productos as PRD
+INNER JOIN imagenes as IMG
+ON PRD.codProducto = IMG.codProducto
+INNER JOIN gastosProducto as GPROD
+ON PRD.codProducto = GPROD.codProducto
+WHERE PRD.codProducto = 1;
 
 /* --------------------------------------------------------
 TRUNCAR TABLAS

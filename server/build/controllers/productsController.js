@@ -31,14 +31,12 @@ class ProductsController {
             if (file) {
                 console.log('file', file);
                 yield database_1.default.query('INSERT INTO imagenes SET ?', [fileImg]);
-                res.json({ code: 'SUCCESS' });
-                return;
+                return res.json({ code: 'SUCCESS' });
             }
-            res.json({ code: 'NO_FILE' });
-            return;
+            return res.json({ code: 'NO_FILE' });
         });
     }
-    //* Nueva producto
+    //* Nuevo producto
     create(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const query = yield database_1.default.query('INSERT INTO productos SET ?', [req.body]);
@@ -50,7 +48,7 @@ class ProductsController {
             });
         });
     }
-    // Guardar costos del producto
+    //* Guardar costos del producto
     saveCosts(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const query = yield database_1.default.query('INSERT INTO gastosProducto SET ?', [req.body]);
@@ -96,11 +94,58 @@ class ProductsController {
                         if (query3.affectedRows > 0) {
                             return res.json({ code: 'SUCCESS' });
                         }
+                        else {
+                            res.json({ code: 'ERROR' });
+                        }
                     }
                 }));
             }
             else {
-                res.json({ code: 'ERROR' });
+                res.json({ code: 'NO_DATA' });
+            }
+        });
+    }
+    //* Obtener el detalle de producto para editar
+    getProductDetail(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const { id } = req.params;
+            const query = yield database_1.default.query(`
+			SELECT PRD.codProducto, PRD.prodNombre, PRD.prodEstado, IMG.urlIMG, GPROD.prodPrecio, GPROD.costoLiberacion,
+					GPROD.costoEnvio, GPROD.costoRepuestos, GPROD.costoReparacion
+			FROM productos as PRD
+			INNER JOIN imagenes as IMG
+			ON PRD.codProducto = IMG.codProducto
+			INNER JOIN gastosProducto as GPROD
+			ON PRD.codProducto = GPROD.codProducto
+			WHERE PRD.codProducto = ?`, [id]);
+            if (query.length > 0) {
+                res.json({
+                    code: 'SUCCESS',
+                    object: query,
+                });
+            }
+            else {
+                res.json({
+                    code: 'NO_DATA',
+                });
+            }
+        });
+    }
+    //* Actualizar los costos del producto
+    updateCosts(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const { id } = req.params;
+            const query = yield database_1.default.query('UPDATE gastosProducto SET ? WHERE codProducto = ?', [req.body, id]);
+            console.log(query.affectedRows);
+            if (query.affectedRows > 0) {
+                res.json({
+                    code: 'SUCCESS',
+                });
+            }
+            else {
+                res.json({
+                    code: 'ERROR',
+                });
             }
         });
     }

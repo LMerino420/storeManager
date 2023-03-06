@@ -15,6 +15,11 @@ const routes: Routes = [
         (m) => m.FormProductsPageModule
       ),
   },
+  {
+    path: 'form-edit/:id',
+    loadChildren: () =>
+      import('./form-edit/form-edit.module').then((m) => m.FormEditPageModule),
+  },
 ];
 
 @NgModule({

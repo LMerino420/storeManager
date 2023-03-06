@@ -31,10 +31,8 @@ class ProductsRoutes {
         this.router.get('/deleteImg/:id', productsController_1.productsController.deleteImg);
         //* RUTAS PARA EL MANTENIMIENTO DE LA TABLA DE GASTOSPRODUCTO
         this.router.post('/saveCosts', productsController_1.productsController.saveCosts);
-        // this.router.get('/listCategory', categoriesController.getList);
-        // this.router.get('/category/:id', categoriesController.getOne);
-        // this.router.put('/updateCategory/:id', categoriesController.update);
-        // this.router.delete('/deleteCategory/:id', categoriesController.delete);
+        this.router.get('/getProductDetail/:id', productsController_1.productsController.getProductDetail);
+        this.router.put('/updateCosts/:id', productsController_1.productsController.updateCosts);
     }
 }
 const productsRoutes = new ProductsRoutes();

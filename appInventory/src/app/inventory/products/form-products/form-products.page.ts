@@ -1,6 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import Swal from 'sweetalert2';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { IonAccordionGroup } from '@ionic/angular';
 
@@ -221,7 +220,7 @@ export class FormProductsPage implements OnInit {
       const code = dt.code;
       console.log(dt);
       if (code === 'SUCCESS') {
-        this.formCost.controls['codProducto'].setValue(idProduct);
+        this.codProducto?.setValue(idProduct);
         this.disableFormProd();
         this.toggleAccordion();
       } else {

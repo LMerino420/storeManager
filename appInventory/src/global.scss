@@ -52,6 +52,11 @@ ion-content {
   }
 }
 
+.ion-color-custom {
+  --ion-color-base: #023059;
+  --ion-color-contrast: white;
+}
+
 //? ------------------- [ESTILOS PARA BOTONES]
 
 .edit-btn {
