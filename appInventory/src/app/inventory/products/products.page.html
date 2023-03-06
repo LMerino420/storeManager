@@ -31,8 +31,11 @@
       >
         <ion-icon name="create"></ion-icon>
       </ion-button>
-      <!-- <ion-button (click)="testDelete(item.codProducto)" class="delete-btn"> -->
-      <ion-button class="delete-btn">
+      <ion-button
+        (click)="confirmDelete(item.codProducto,item.prodNombre)"
+        class="delete-btn"
+      >
+        <!-- <ion-button class="delete-btn"> -->
         <ion-icon name="trash"></ion-icon>
       </ion-button>
     </ion-item>

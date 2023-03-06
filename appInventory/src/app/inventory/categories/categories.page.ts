@@ -27,6 +27,7 @@ export class CategoriesPage implements OnInit {
     await this.getListCategories();
   }
 
+  //* REDIRECCIONAR A HOME
   goHome() {
     this.router.navigate(['/home']);
   }
@@ -144,8 +145,8 @@ export class CategoriesPage implements OnInit {
     await alert.present();
   }
 
-  //* ELIMINAR UNA CATEGORIA
-  async deleteCategory(id: string, cat: string) {
+  //* CONFIRMACION DE ELIMINACION
+  deleteCategory(id: string, cat: string) {
     Swal.fire({
       heightAuto: false,
       title: 'Do you want to delete ' + cat + ' ?',
@@ -159,6 +160,7 @@ export class CategoriesPage implements OnInit {
     });
   }
 
+  //* ELIMINAR CATEGORIA
   async delete(id: string) {
     const data = await this.categoriesService.deleteCategory(id);
     data.subscribe(async (dt: any) => {

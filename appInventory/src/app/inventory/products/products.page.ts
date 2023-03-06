@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import Swal from 'sweetalert2';
 
 import { ProductsService } from '../../services/products.service';
 import { Commons } from '../../commons';
@@ -58,12 +59,33 @@ export class ProductsPage implements OnInit {
     });
   }
 
-  // Eliminar producto
-  async testDelete(id: string) {
+  //* Confirmacion de eliminacion
+  confirmDelete(id: string, prod: string) {
+    Swal.fire({
+      heightAuto: false,
+      title: 'Do you want to delete ' + prod + ' ?',
+      showDenyButton: true,
+      confirmButtonText: 'YES, DELETE',
+      denyButtonText: 'CANCEL',
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        await this.deleteProduct(id);
+      }
+    });
+  }
+
+  //* Eliminar producto
+  async deleteProduct(id: string) {
     console.log('id =>', id);
     const data = await this.productsService.deleteProduct(id);
     data.subscribe(async (dt: any) => {
-      console.log('dt =>', dt);
+      const code = dt.code;
+      if (code === 'SUCCESS') {
+        await this.commons.successAlert('Product successfully disposed');
+        await this.getListProducts();
+      } else {
+        await this.commons.errorAlert();
+      }
     });
   }
 }

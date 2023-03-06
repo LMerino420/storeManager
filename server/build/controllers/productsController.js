@@ -90,12 +90,15 @@ class ProductsController {
                 fs_1.default.unlink(path_1.default.resolve(query1[0].urlImg), (rs) => __awaiter(this, void 0, void 0, function* () {
                     const query2 = yield database_1.default.query('DELETE FROM imagenes WHERE codProducto =?', [id]);
                     if (query2.affectedRows > 0) {
-                        const query3 = yield database_1.default.query('DELETE FROM productos WHERE codProducto =?', [id]);
-                        if (query3.affectedRows > 0) {
-                            return res.json({ code: 'SUCCESS' });
-                        }
-                        else {
-                            res.json({ code: 'ERROR' });
+                        const query3 = yield database_1.default.query('DELETE FROM gastosProducto WHERE codProducto =?', [id]);
+                        if (query2.affectedRows > 0) {
+                            const query4 = yield database_1.default.query('DELETE FROM productos WHERE codProducto =?', [id]);
+                            if (query4.affectedRows > 0) {
+                                return res.json({ code: 'SUCCESS' });
+                            }
+                            else {
+                                res.json({ code: 'ERROR' });
+                            }
                         }
                     }
                 }));

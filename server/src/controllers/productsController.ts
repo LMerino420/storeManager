@@ -75,11 +75,14 @@ class ProductsController {
 			fs.unlink(path.resolve(query1[0].urlImg), async (rs) => {
 				const query2 = await db.query('DELETE FROM imagenes WHERE codProducto =?', [id]);
 				if (query2.affectedRows > 0) {
-					const query3 = await db.query('DELETE FROM productos WHERE codProducto =?', [id]);
-					if (query3.affectedRows > 0) {
-						return res.json({ code: 'SUCCESS' });
-					} else {
-						res.json({ code: 'ERROR' });
+					const query3 = await db.query('DELETE FROM gastosProducto WHERE codProducto =?', [id]);
+					if (query2.affectedRows > 0) {
+						const query4 = await db.query('DELETE FROM productos WHERE codProducto =?', [id]);
+						if (query4.affectedRows > 0) {
+							return res.json({ code: 'SUCCESS' });
+						} else {
+							res.json({ code: 'ERROR' });
+						}
 					}
 				}
 			});
