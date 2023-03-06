@@ -10,6 +10,7 @@ import { AppRoutingModule } from './app-routing.module';
 
 import { CategoriesService } from './services/categories.service';
 import { ProductsService } from './services/products.service';
+import { HomeService } from './services/home.service';
 
 @NgModule({
   declarations: [AppComponent],
@@ -23,6 +24,7 @@ import { ProductsService } from './services/products.service';
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     CategoriesService,
     ProductsService,
+    HomeService,
   ],
   bootstrap: [AppComponent],
 })
