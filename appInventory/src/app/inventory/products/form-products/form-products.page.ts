@@ -45,10 +45,11 @@ export class FormProductsPage implements OnInit {
       // codProducto: [1],
       codProducto: ['', [Validators.required]],
       prodPrecio: ['', [Validators.required]],
-      costoLiberacion: [''],
-      costoEnvio: [''],
-      costoRepuestos: [''],
-      costoReparacion: [''],
+      costoLiberacion: [0],
+      costoEnvio: [0],
+      costoRepuestos: [0],
+      costoReparacion: [0],
+      costoTotal: [0],
     });
   }
 
@@ -99,6 +100,10 @@ export class FormProductsPage implements OnInit {
     return this.formCost.get('costoReparacion');
   }
 
+  get costoTotal() {
+    return this.formCost.get('costoTotal');
+  }
+
   //* Regresar a la pagina anterior
   goBack() {
     this.router.navigate(['/products']);
@@ -142,6 +147,17 @@ export class FormProductsPage implements OnInit {
     this.costoEnvio?.reset();
     this.costoRepuestos?.reset();
     this.costoReparacion?.reset();
+  }
+
+  //* Suma del costo total
+  totalCost() {
+    const total =
+      this.prodPrecio?.value +
+      this.costoLiberacion?.value +
+      this.costoEnvio?.value +
+      this.costoRepuestos?.value +
+      this.costoReparacion?.value;
+    return total;
   }
 
   //* Toggle accordion
@@ -234,6 +250,8 @@ export class FormProductsPage implements OnInit {
   //* METODO PARA GUARDAR LOS COSTOS DEL PRODUCTO
   async addCost() {
     if (this.formCost.valid) {
+      const tot = this.totalCost();
+      this.costoTotal?.setValue(tot);
       let params = this.formCost.value;
       const data = await this.productService.addCosts(params);
       data.subscribe(async (dt: any) => {

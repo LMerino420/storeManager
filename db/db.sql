@@ -32,6 +32,7 @@ CREATE TABLE gastosProducto(
     costoEnvio DECIMAL(9,2),
     costoRepuestos DECIMAL(9,2),
     costoReparacion DECIMAL(9,2),
+    costoTotal DECIMAL(9,2),
     FOREIGN KEY (codProducto) REFERENCES productos(codProducto)
 );
 

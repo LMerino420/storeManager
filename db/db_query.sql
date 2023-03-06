@@ -3,6 +3,9 @@ SELECCIONAR BASE DE DATOS
 -------------------------------------------------------- */
 USE db_store_manager;
 
+ALTER TABLE gastosProducto
+ADD costoTotal DECIMAL(9,2);
+
 /* --------------------------------------------------------
 CATEGORIAS
 -------------------------------------------------------- */
@@ -34,6 +37,12 @@ ON PRD.codProducto = IMG.codProducto
 INNER JOIN gastosProducto as GPROD
 ON PRD.codProducto = GPROD.codProducto
 WHERE PRD.codProducto = 1;
+
+/*Eliminar producto*/
+DELETE FROM gastosProducto WHERE codProducto = 5;
+DELETE FROM imagenes WHERE codProducto = 5;
+DELETE FROM productos WHERE codProducto = 5;
+
 
 /* --------------------------------------------------------
 TRUNCAR TABLAS
