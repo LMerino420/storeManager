@@ -18,58 +18,74 @@ class CategoriesController {
     //* Nueva categoria
     create(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            yield database_1.default.query('INSERT INTO categorias set ?', [req.body]);
-            res.json({ code: 'SUCCESS' });
+            const query = yield database_1.default.query('INSERT INTO categorias set ?', [req.body]);
+            if (query.insertId > 0) {
+                res.json({ code: 'SUCCESS' });
+            }
+            else {
+                res.json({ code: 'ERROR' });
+            }
         });
     }
     //* Obtener lista de categorias
     getList(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            const games = yield database_1.default.query('SELECT * FROM categorias');
-            if (games.length > 0) {
+            const listCategories = yield database_1.default.query('SELECT * FROM categorias');
+            if (listCategories.length > 0) {
                 return res.json({
                     code: 'SUCCESS',
-                    object: games,
+                    object: listCategories,
                 });
             }
-            return res.status(404).json({
-                code: 'NOT_FOUND',
-            });
+            else {
+                return res.status(404).json({
+                    code: 'NOT_FOUND',
+                });
+            }
         });
     }
     //* Obtener una categoria
     getOne(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const { id } = req.params;
-            const game = yield database_1.default.query('SELECT * FROM categorias WHERE codCategoria = ?', [id]);
-            if (game.length > 0) {
+            const category = yield database_1.default.query('SELECT * FROM categorias WHERE codCategoria = ?', [id]);
+            if (category.length > 0) {
                 return res.json({
                     code: 'SUCCESS',
-                    object: game[0],
+                    object: category[0],
                 });
             }
-            return res.status(404).json({
-                code: 'NOT_FOUND',
-            });
+            else {
+                return res.status(404).json({
+                    code: 'NOT_FOUND',
+                });
+            }
         });
     }
     //* Actualizar una categoria
     update(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const { id } = req.params;
-            yield database_1.default.query('UPDATE categorias SET ? WHERE codCategoria = ?', [
-                req.body,
-                id,
-            ]);
-            res.json({ code: 'SUCCESS' });
+            const query = yield database_1.default.query('UPDATE categorias SET ? WHERE codCategoria = ?', [req.body, id]);
+            if (query.affectedRows > 0) {
+                res.json({ code: 'SUCCESS' });
+            }
+            else {
+                res.json({ code: 'ERROR' });
+            }
         });
     }
     //* Eliminar una categoria
     delete(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const { id } = req.params;
-            yield database_1.default.query('DELETE FROM categorias WHERE codCategoria = ?', [id]);
-            res.json({ code: 'SUCCESS' });
+            const query = yield database_1.default.query('DELETE FROM categorias WHERE codCategoria = ?', [id]);
+            if (query.affectedRows > 0) {
+                res.json({ code: 'SUCCESS' });
+            }
+            else {
+                res.json({ code: 'ERROR' });
+            }
         });
     }
 }

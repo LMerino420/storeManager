@@ -1,8 +1,11 @@
 import { HttpParams } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+
 import { AlertController } from '@ionic/angular';
+import Swal from 'sweetalert2';
 import { CategoriesService } from '../../services/categories.service';
+import { Commons } from '../../commons';
 
 @Component({
   selector: 'app-categories',
@@ -16,7 +19,8 @@ export class CategoriesPage implements OnInit {
   constructor(
     private router: Router,
     private alertController: AlertController,
-    private categoriesService: CategoriesService
+    private categoriesService: CategoriesService,
+    private commons: Commons
   ) {}
 
   async ngOnInit() {
@@ -29,15 +33,17 @@ export class CategoriesPage implements OnInit {
 
   //* OBTENER LISTA DE CATEGORIAS
   async getListCategories() {
+    await this.commons.showLoader('Getting categories');
     const data = await this.categoriesService.getCategories();
-    data.subscribe((dt: any) => {
+    data.subscribe(async (dt: any) => {
+      await this.commons.hideLoader();
       const code = dt.code;
       if (code === 'SUCCESS') {
         const obj = dt.object;
         this.listCategories = obj;
         this.qty = obj.length;
       } else {
-        console.log('ERROR');
+        await this.commons.errorAlert();
       }
     });
   }
@@ -67,9 +73,10 @@ export class CategoriesPage implements OnInit {
             dt.subscribe(async (r: any) => {
               const code = r.code;
               if (code === 'SUCCESS') {
+                await this.commons.successAlert('Category added successfully.');
                 await this.getListCategories();
               } else {
-                console.log('ERROR');
+                await this.commons.errorAlert();
               }
             });
           },
@@ -82,14 +89,16 @@ export class CategoriesPage implements OnInit {
 
   //* OBTENER DATOS DE CATEGORIA
   async getCategory(cod: string) {
+    await this.commons.showLoader('Getting data');
     const data = await this.categoriesService.getCategory(cod);
-    data.subscribe((r: any) => {
+    data.subscribe(async (r: any) => {
+      await this.commons.hideLoader();
       const code = r.code;
       if (code === 'SUCCESS') {
         const obj = r.object;
         this.editCategory(cod, obj.categNombre);
       } else {
-        console.log('ERROR');
+        await this.commons.errorAlert();
       }
     });
   }
@@ -118,10 +127,14 @@ export class CategoriesPage implements OnInit {
             const dt = await this.categoriesService.editCategory(id, params);
             dt.subscribe(async (r: any) => {
               const code = r.code;
+              console.log(code);
               if (code === 'SUCCESS') {
+                await this.commons.successAlert(
+                  'Category updated successfully.'
+                );
                 await this.getListCategories();
               } else {
-                console.log('ERROR');
+                await this.commons.errorAlert();
               }
             });
           },
@@ -133,24 +146,17 @@ export class CategoriesPage implements OnInit {
 
   //* ELIMINAR UNA CATEGORIA
   async deleteCategory(id: string, cat: string) {
-    const alert = await this.alertController.create({
-      header: 'Do you want to delete ' + cat + ' ?',
-      buttons: [
-        {
-          text: 'CANCEL',
-          role: 'cancel',
-        },
-        {
-          text: 'YES, DELETE',
-          role: 'confirm',
-          handler: async () => {
-            await this.delete(id);
-          },
-        },
-      ],
+    Swal.fire({
+      heightAuto: false,
+      title: 'Do you want to delete ' + cat + ' ?',
+      showDenyButton: true,
+      confirmButtonText: 'YES, DELETE',
+      denyButtonText: 'CANCEL',
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        await this.delete(id);
+      }
     });
-
-    await alert.present();
   }
 
   async delete(id: string) {
@@ -158,9 +164,10 @@ export class CategoriesPage implements OnInit {
     data.subscribe(async (dt: any) => {
       const code = dt.code;
       if (code === 'SUCCESS') {
+        await this.commons.successAlert('Category deleted successfully.');
         await this.getListCategories();
       } else {
-        console.log('ERROR');
+        await this.commons.errorAlert();
       }
     });
   }
