@@ -26,8 +26,8 @@
         <ion-label>{{detailProduct.prodEstado}}</ion-label>
       </div>
       <div class="info-section">
-        <ion-label class="info-title">Cost:</ion-label>
-        <ion-label>{{detailProduct.prodPrecio | currency}}</ion-label>
+        <ion-label class="info-title">Total cost:</ion-label>
+        <ion-label>{{detailProduct.costoTotal | currency}}</ion-label>
       </div>
     </div>
   </div>
@@ -40,6 +40,17 @@
       <div class="ion-padding" slot="content">
         <!-- FORM PRODUCT COST -->
         <form [formGroup]="formCost" (ngSubmit)="updateCosts()">
+          <!-- Input de costo del producto -->
+          <div class="frmDiv">
+            <ion-item fill="outline">
+              <ion-label position="floating">Cost</ion-label>
+              <ion-input
+                formControlName="prodPrecio"
+                type="number"
+                [readonly]="true"
+              ></ion-input>
+            </ion-item>
+          </div>
           <!-- Input de costo de liberacion -->
           <div class="frmDiv">
             <ion-item fill="outline">

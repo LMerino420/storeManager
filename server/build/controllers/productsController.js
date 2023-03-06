@@ -62,7 +62,7 @@ class ProductsController {
     getProductsImg(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const query = yield database_1.default.query(`
-				SELECT PRD.codProducto, PRD.prodNombre, PRD.prodEstado, IMG.urlIMG, GPROD.prodPrecio
+				SELECT PRD.codProducto, PRD.prodNombre, PRD.prodEstado, IMG.urlIMG, GPROD.costoTotal
 				FROM productos as PRD
 				INNER JOIN imagenes as IMG
 				ON PRD.codProducto = IMG.codProducto
@@ -113,7 +113,8 @@ class ProductsController {
         return __awaiter(this, void 0, void 0, function* () {
             const { id } = req.params;
             const query = yield database_1.default.query(`
-			SELECT PRD.codProducto, PRD.prodNombre, PRD.prodEstado, IMG.urlIMG, GPROD.prodPrecio, GPROD.costoLiberacion,
+			SELECT PRD.codProducto, PRD.prodNombre, PRD.prodEstado, IMG.urlIMG, 
+					GPROD.costoTotal,GPROD.prodPrecio, GPROD.costoLiberacion,
 					GPROD.costoEnvio, GPROD.costoRepuestos, GPROD.costoReparacion
 			FROM productos as PRD
 			INNER JOIN imagenes as IMG

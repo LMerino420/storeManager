@@ -24,7 +24,7 @@
         <h3>{{item.prodNombre}}</h3>
         <p>ST: {{item.prodEstado}}</p>
       </ion-label>
-      <ion-label class="currency">{{item.prodPrecio | currency}}</ion-label>
+      <ion-label class="currency">{{item.costoTotal | currency}}</ion-label>
       <ion-button
         class="edit-btn"
         [routerLink]="['/products/form-edit',item.codProducto]"

@@ -24,10 +24,12 @@ export class FormEditPage implements OnInit {
   ) {
     //* Declarar formulario para costos del producto
     this.formCost = this.formBuilder.group({
+      prodPrecio: [''],
       costoLiberacion: [''],
       costoEnvio: [''],
       costoRepuestos: [''],
       costoReparacion: [''],
+      costoTotal: [''],
     });
   }
 
@@ -38,6 +40,10 @@ export class FormEditPage implements OnInit {
   }
 
   //* ---------------------------------- GETTER INPUTS formCost
+  get prodPrecio() {
+    return this.formCost.get('prodPrecio');
+  }
+
   get costoLiberacion() {
     return this.formCost.get('costoLiberacion');
   }
@@ -54,13 +60,29 @@ export class FormEditPage implements OnInit {
     return this.formCost.get('costoReparacion');
   }
 
+  get costoTotal() {
+    return this.formCost.get('costoTotal');
+  }
+
   //* ---------------------------------- SET VALUES formCost
   setValuesForm() {
+    this.prodPrecio?.setValue(this.detailProduct.prodPrecio);
     this.costoLiberacion?.setValue(this.detailProduct.costoLiberacion);
     this.costoEnvio?.setValue(this.detailProduct.costoEnvio);
     this.costoRepuestos?.setValue(this.detailProduct.costoRepuestos);
     this.costoReparacion?.setValue(this.detailProduct.costoReparacion);
     // console.log('FORM =>', this.formCost.value);
+  }
+
+  //* Suma del costo total
+  totalCost() {
+    const total =
+      this.prodPrecio?.value +
+      this.costoLiberacion?.value +
+      this.costoEnvio?.value +
+      this.costoRepuestos?.value +
+      this.costoReparacion?.value;
+    return total;
   }
 
   //* Regresar a la pagina anterior
@@ -89,6 +111,8 @@ export class FormEditPage implements OnInit {
 
   // Actualizar costos del producto
   async updateCosts() {
+    const tot = this.totalCost();
+    this.costoTotal?.setValue(tot);
     const params = this.formCost.value;
     const data = await this.productsService.updateCosts(this.codProd, params);
     data.subscribe(async (dt: any) => {

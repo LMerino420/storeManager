@@ -48,7 +48,7 @@ class ProductsController {
 	//* Obtner productos con imagen
 	public async getProductsImg(req: Request, res: Response): Promise<void> {
 		const query = await db.query(`
-				SELECT PRD.codProducto, PRD.prodNombre, PRD.prodEstado, IMG.urlIMG, GPROD.prodPrecio
+				SELECT PRD.codProducto, PRD.prodNombre, PRD.prodEstado, IMG.urlIMG, GPROD.costoTotal
 				FROM productos as PRD
 				INNER JOIN imagenes as IMG
 				ON PRD.codProducto = IMG.codProducto
@@ -96,7 +96,8 @@ class ProductsController {
 		const { id } = req.params;
 		const query = await db.query(
 			`
-			SELECT PRD.codProducto, PRD.prodNombre, PRD.prodEstado, IMG.urlIMG, GPROD.prodPrecio, GPROD.costoLiberacion,
+			SELECT PRD.codProducto, PRD.prodNombre, PRD.prodEstado, IMG.urlIMG, 
+					GPROD.costoTotal,GPROD.prodPrecio, GPROD.costoLiberacion,
 					GPROD.costoEnvio, GPROD.costoRepuestos, GPROD.costoReparacion
 			FROM productos as PRD
 			INNER JOIN imagenes as IMG
