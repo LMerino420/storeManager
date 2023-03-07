@@ -4,7 +4,7 @@ import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'home',
+    redirectTo: 'landing',
     pathMatch: 'full',
   },
   {
@@ -25,6 +25,30 @@ const routes: Routes = [
       import('./inventory/products/products.module').then(
         (m) => m.ProductsPageModule
       ),
+  },
+  {
+    path: 'login',
+    loadChildren: () =>
+      import('./auth/login/login.module').then((m) => m.LoginPageModule),
+  },
+  {
+    path: 'register',
+    loadChildren: () =>
+      import('./auth/register/register.module').then(
+        (m) => m.RegisterPageModule
+      ),
+  },
+  {
+    path: 'forgot-password',
+    loadChildren: () =>
+      import('./auth/forgot-password/forgot-password.module').then(
+        (m) => m.ForgotPasswordPageModule
+      ),
+  },
+  {
+    path: 'landing',
+    loadChildren: () =>
+      import('./auth/landing/landing.module').then((m) => m.LandingPageModule),
   },
 ];
 

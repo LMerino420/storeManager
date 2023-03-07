@@ -1,0 +1,34 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+    <ion-img src="assets/img/header-bkg.png"></ion-img>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card class="ion-no-margin">
+    <!-- Detalles del encabezado -->
+    <ion-card-header>
+      <ion-card-title> Welcome </ion-card-title>
+      <ion-card-subtitle>
+        This application is a platform for <br />
+        managing product inventory.
+      </ion-card-subtitle>
+    </ion-card-header>
+    <!-- Contenido de la card -->
+    <ion-card-content>
+      <div class="div-btns">
+        <ion-button
+          (click)="goToLogin()"
+          fill="solid"
+          shape="round"
+          class="login-btn"
+        >
+          Login
+        </ion-button>
+        <ion-button fill="outline" shape="round" color="dark">
+          SignIn
+        </ion-button>
+      </div>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

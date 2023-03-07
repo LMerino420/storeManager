@@ -1,0 +1,39 @@
+ion-header {
+  position: absolute;
+  ion-toolbar {
+    --opacity: 0;
+  }
+}
+
+ion-content {
+  --ion-background-color: #f2f4f4;
+}
+
+ion-card {
+  --ion-background-color: transparent;
+  box-shadow: none;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  ion-card-title {
+    font-size: 20px !important;
+    text-align: center;
+    font-weight: 600;
+    margin-bottom: 20px;
+  }
+  ion-card-subtitle {
+    font-size: 12px;
+    text-align: center;
+    font-weight: 300;
+  }
+}
+
+.div-btns {
+  margin-top: 20px;
+  text-align: center;
+  .login-btn {
+    --ion-color-primary: #023059;
+  }
+}
