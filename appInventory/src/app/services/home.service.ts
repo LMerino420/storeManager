@@ -12,4 +12,8 @@ export class HomeService {
   getExpenses() {
     return this.http.get(`${this.API_URI}/expenses`);
   }
+
+  getExpensesDetail() {
+    return this.http.get(`${this.API_URI}/expensesDetail`);
+  }
 }

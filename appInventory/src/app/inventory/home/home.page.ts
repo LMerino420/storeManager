@@ -22,6 +22,8 @@ export class HomePage implements OnInit {
     await this.getExpenses();
   }
 
+  //* -------------------------------------------------- RUTAS DE REDIRECCION
+
   goToCategories() {
     this.router.navigate(['/categories']);
   }
@@ -29,6 +31,12 @@ export class HomePage implements OnInit {
   goToProducts() {
     this.router.navigate(['/products']);
   }
+
+  goToExpensesDetail() {
+    this.router.navigate(['home/expenses-detail']);
+  }
+
+  //* -------------------------------------------------- RUTAS DE REDIRECCION
 
   async getExpenses() {
     await this.commons.showLoader('Getting expenses');

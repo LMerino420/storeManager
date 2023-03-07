@@ -12,6 +12,7 @@ class IndexRoutes {
 	config(): void {
 		this.router.get('/', indexController.index);
 		this.router.get('/expenses', indexController.expenses);
+		this.router.get('/expensesDetail', indexController.expensesDetail);
 	}
 }
 

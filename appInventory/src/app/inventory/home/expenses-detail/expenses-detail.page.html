@@ -1,0 +1,47 @@
+<ion-content>
+  <!-- HEADER -->
+  <div class="header">
+    <ion-buttons slot="start" class="menu_btn">
+      <ion-button (click)="goHome()">
+        <ion-icon name="arrow-back"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-label>Expenses details</ion-label>
+  </div>
+
+  <!-- DETAIL -->
+  <div class="detailDiv">
+    <ion-label>Total: {{expensesDetail.Expenses | currency}}</ion-label>
+  </div>
+
+  <!-- DETALLE DE GASTOS -->
+  <div class="detailExpensesDiv">
+    <div class="gridDiv">
+      <div class="box">
+        <img src="../../../assets/icon/exp_product.png" />
+        <h6>Product value</h6>
+        <p>{{expensesDetail.Producto | currency}}</p>
+      </div>
+      <div class="box">
+        <img src="../../../assets/icon/exp_unlock.png" />
+        <h6>Unlocking</h6>
+        <p>{{expensesDetail.Liberacion | currency}}</p>
+      </div>
+      <div class="box">
+        <img src="../../../assets/icon/exp_parts.png" />
+        <h6>Spare parts</h6>
+        <p>{{expensesDetail.Repuestos | currency}}</p>
+      </div>
+      <div class="box">
+        <img src="../../../assets/icon/exp_repairs.png" />
+        <h6>Repairs</h6>
+        <p>{{expensesDetail.Reparacion | currency}}</p>
+      </div>
+      <div class="box">
+        <img src="../../../assets/icon/exp_shipping.png" />
+        <h6>Shipping</h6>
+        <p>{{expensesDetail.Envio | currency}}</p>
+      </div>
+    </div>
+  </div>
+</ion-content>

@@ -1,0 +1,42 @@
+.detailExpensesDiv {
+  height: auto;
+  background-color: #fff;
+  padding-top: 25px;
+  padding-bottom: 20px;
+  .gridDiv {
+    display: grid;
+    grid-template-columns: 48% 48%;
+    grid-gap: 10px;
+    margin-right: 10px;
+    margin-left: 15px;
+    .box {
+      background-color: #efefef;
+      box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px,
+        rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+      border-radius: 14px;
+      height: 160px;
+      padding: 10%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      img {
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        width: 65px;
+        height: 70px;
+      }
+      p {
+        margin: auto;
+        font-weight: bold;
+        font-size: 20px;
+        color: #e45757;
+      }
+      h6 {
+        color: #023059;
+        text-align: center;
+      }
+    }
+  }
+}

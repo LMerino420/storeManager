@@ -36,5 +36,31 @@ class IndexController {
             }
         });
     }
+    //* Obtener el detalle de los gastos
+    expensesDetail(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const query = yield database_1.default.query(`
+			SELECT 
+				SUM(costoTotal) as Expenses,
+				SUM(prodPrecio) as Producto ,
+				SUM(costoLiberacion) as Liberacion , 
+				SUM(costoEnvio) as Envio, 
+				SUM(costoRepuestos) as Repuestos, 
+				SUM(costoReparacion) as Reparacion 
+			FROM gastosProducto
+		`);
+            if (query.length > 0) {
+                res.json({
+                    code: 'SUCCESS',
+                    object: query[0],
+                });
+            }
+            else {
+                res.status(404).json({
+                    code: 'NOT_FOUND',
+                });
+            }
+        });
+    }
 }
 exports.indexController = new IndexController();
