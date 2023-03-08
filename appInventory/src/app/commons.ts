@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { LoadingController } from '@ionic/angular';
 import Swal from 'sweetalert2';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root',
@@ -8,7 +9,7 @@ import Swal from 'sweetalert2';
 export class Commons {
   loader: any;
 
-  constructor(private loadingCtrl: LoadingController) {}
+  constructor(private loadingCtrl: LoadingController, private router: Router) {}
 
   //* Mostrar loader
   async showLoader(msj = 'Loading, please wait...') {
@@ -63,5 +64,11 @@ export class Commons {
     } else {
       console.log('No se ha establecido un mensaje para la alerta');
     }
+  }
+
+  //* Regresar a la ruta anterior
+  goBack(toDirection: string) {
+    // this._location.back();
+    this.router.navigate([`./${toDirection}`]);
   }
 }

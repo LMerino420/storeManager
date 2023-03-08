@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 
 import { HomeService } from '../../../services/home.service';
 import { Commons } from '../../../commons';
@@ -12,11 +11,7 @@ import { Commons } from '../../../commons';
 export class ExpensesDetailPage implements OnInit {
   expensesDetail: any = [];
 
-  constructor(
-    private router: Router,
-    private homeService: HomeService,
-    private commons: Commons
-  ) {}
+  constructor(private homeService: HomeService, private commons: Commons) {}
 
   async ngOnInit() {
     await this.getExpensesDetail();
@@ -24,7 +19,7 @@ export class ExpensesDetailPage implements OnInit {
 
   //* REDIRECCIONAR A HOME
   goHome() {
-    this.router.navigate(['/home']);
+    this.commons.goBack('home');
   }
 
   //* OBTENER DETALLE DE LOS GASTOS

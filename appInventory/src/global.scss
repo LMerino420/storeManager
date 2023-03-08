@@ -57,6 +57,30 @@ ion-content {
   --ion-color-contrast: white;
 }
 
+.custom-header {
+  position: absolute;
+  ion-toolbar {
+    --opacity: 0;
+  }
+}
+
+.custom-card {
+  --ion-background-color: transparent;
+  box-shadow: none;
+  height: 85vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  ion-card-title,
+  ion-label {
+    text-align: center;
+    font-weight: bold;
+    font-size: 25px;
+    color: #023059;
+  }
+}
+
 //? ------------------- [ESTILOS PARA BOTONES]
 
 .edit-btn {

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Commons } from '../../commons';
 
 @Component({
   selector: 'app-login',
@@ -6,10 +7,14 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./login.page.scss'],
 })
 export class LoginPage implements OnInit {
+  user: any;
+  password: any;
 
-  constructor() { }
+  constructor(private commons: Commons) {}
 
-  ngOnInit() {
+  ngOnInit() {}
+
+  goBack() {
+    this.commons.goBack('');
   }
-
 }

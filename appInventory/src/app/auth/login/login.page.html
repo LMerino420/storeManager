@@ -1,7 +1,60 @@
-<ion-header>
+<ion-header class="ion-no-border custom-header">
   <ion-toolbar>
-    <ion-title>login</ion-title>
+    <ion-img src="assets/img/formHead-bkg.png"></ion-img>
   </ion-toolbar>
+  <ion-buttons slot="start">
+    <ion-back-button defaulthref="landing" text=""></ion-back-button>
+  </ion-buttons>
 </ion-header>
 
-<ion-content> </ion-content>
+<ion-content>
+  <ion-card class="ion-no-margin custom-card">
+    <!-- Detalles del encabezado -->
+    <ion-card-header>
+      <ion-button (click)="goBack()">
+        <ion-icon name="arrow-back-outline"></ion-icon>
+      </ion-button>
+      <ion-label class="custom-card-title">Sign in</ion-label>
+    </ion-card-header>
+    <!-- Formulario de login -->
+    <ion-card-content>
+      <div class="wrapForm">
+        <ion-item>
+          <ion-icon name="person-circle-outline"></ion-icon>
+          <ion-input
+            type="text"
+            name="user"
+            [(ngModel)]="user"
+            placeholder="User"
+            required
+          ></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-icon name="key-outline"></ion-icon>
+          <ion-input
+            type="password"
+            name="password"
+            [(ngModel)]="password"
+            placeholder="Password"
+            required
+          ></ion-input>
+        </ion-item>
+      </div>
+      <div class="pwdForgot">
+        <ion-button fill="clear" class="ion-no-padding">
+          Forgot password?
+        </ion-button>
+      </div>
+      <div class="sign-btn-wrap">
+        <ion-button shape="round" fill="solid" class="sign-btn">
+          Login
+        </ion-button>
+      </div>
+    </ion-card-content>
+  </ion-card>
+  <!-- Recuperacion de contraseña -->
+  <div class="card-footer">
+    <span>Don´t have an account?</span>
+    <button class="ion-no-padding">Sign Up</button>
+  </div>
+</ion-content>
