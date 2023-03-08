@@ -15,6 +15,6 @@ export class LoginPage implements OnInit {
   ngOnInit() {}
 
   goBack() {
-    this.commons.goBack('');
+    this.commons.goTo('');
   }
 }

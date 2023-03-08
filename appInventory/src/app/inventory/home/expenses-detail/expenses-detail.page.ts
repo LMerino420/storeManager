@@ -19,7 +19,7 @@ export class ExpensesDetailPage implements OnInit {
 
   //* REDIRECCIONAR A HOME
   goHome() {
-    this.commons.goBack('home');
+    this.commons.goTo('home');
   }
 
   //* OBTENER DETALLE DE LOS GASTOS

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Commons } from '../../commons';
 
 @Component({
   selector: 'app-landing',
@@ -7,11 +7,11 @@ import { Router } from '@angular/router';
   styleUrls: ['./landing.page.scss'],
 })
 export class LandingPage implements OnInit {
-  constructor(private router: Router) {}
+  constructor(private commons: Commons) {}
 
   ngOnInit() {}
 
-  goToLogin() {
-    this.router.navigate(['/login']);
+  goTo(direction: string) {
+    this.commons.goTo(direction);
   }
 }

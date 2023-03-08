@@ -1,9 +1,62 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>register</ion-title>
-  </ion-toolbar>
-</ion-header>
-
 <ion-content>
-
+  <ion-card class="custom-card">
+    <!-- Detalles del encabezado -->
+    <ion-card-header>
+      <div class="crd-title">
+        <ion-button (click)="goBack()">
+          <ion-icon name="arrow-back-outline"></ion-icon>
+        </ion-button>
+        <ion-label class="custom-card-title"> Sign Up </ion-label>
+      </div>
+    </ion-card-header>
+    <ion-card-content>
+      <div class="wrapForm">
+        <ion-item>
+          <ion-icon name="id-card-outline"></ion-icon>
+          <ion-input
+            type="text"
+            name="name"
+            [(ngModel)]="name"
+            placeholder="Name: (ex: Juan Perez)"
+            required
+          ></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-icon name="mail-outline"></ion-icon>
+          <ion-input
+            type="text"
+            name="email"
+            [(ngModel)]="email"
+            placeholder="E-mail: (ex: jperez@mail.com)"
+            required
+          ></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-icon name="person-circle-outline"></ion-icon>
+          <ion-input
+            type="text"
+            name="user"
+            [(ngModel)]="user"
+            placeholder="User"
+            required
+          ></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-icon name="key-outline"></ion-icon>
+          <ion-input
+            type="password"
+            name="password"
+            [(ngModel)]="password"
+            placeholder="Password"
+            required
+          ></ion-input>
+        </ion-item>
+      </div>
+      <div class="sign-btn-wrap">
+        <ion-button shape="round" fill="solid" class="sign-btn">
+          Sign up
+        </ion-button>
+      </div>
+    </ion-card-content>
+  </ion-card>
 </ion-content>

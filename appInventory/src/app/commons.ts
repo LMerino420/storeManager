@@ -67,7 +67,7 @@ export class Commons {
   }
 
   //* Regresar a la ruta anterior
-  goBack(toDirection: string) {
+  goTo(toDirection: string) {
     // this._location.back();
     this.router.navigate([`./${toDirection}`]);
   }

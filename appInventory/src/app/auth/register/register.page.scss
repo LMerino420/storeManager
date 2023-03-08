@@ -1,0 +1,13 @@
+.crd-title {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  ion-button {
+    --background: transparent;
+    --box-shadow: none;
+    --color: #023059;
+  }
+  .custom-card-title {
+    margin-left: -10px;
+  }
+}

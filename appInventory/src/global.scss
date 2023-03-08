@@ -81,6 +81,20 @@ ion-content {
   }
 }
 
+.wrapForm {
+  margin-top: 15px;
+  ion-item {
+    ion-input {
+      color: #023059;
+    }
+    ion-icon {
+      padding-right: 6px;
+      font-size: 20px;
+      color: #023059;
+    }
+  }
+}
+
 //? ------------------- [ESTILOS PARA BOTONES]
 
 .edit-btn {
@@ -96,5 +110,13 @@ ion-content {
   margin-top: 15px;
   .primary-btn {
     --background: #0388a6;
+  }
+}
+
+.sign-btn-wrap {
+  text-align: center;
+  padding-top: 20px;
+  .sign-btn {
+    --background: #023059;
   }
 }

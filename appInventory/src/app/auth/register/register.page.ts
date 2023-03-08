@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Commons } from '../../commons';
 
 @Component({
   selector: 'app-register',
@@ -6,10 +7,16 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./register.page.scss'],
 })
 export class RegisterPage implements OnInit {
+  name: any;
+  email: any;
+  user: any;
+  password: any;
 
-  constructor() { }
+  constructor(private commons: Commons) {}
 
-  ngOnInit() {
+  ngOnInit() {}
+
+  goBack() {
+    this.commons.goTo('');
   }
-
 }

@@ -18,15 +18,20 @@
     <ion-card-content>
       <div class="div-btns">
         <ion-button
-          (click)="goToLogin()"
+          (click)="goTo('login')"
           fill="solid"
           shape="round"
           class="login-btn"
         >
           Login
         </ion-button>
-        <ion-button fill="outline" shape="round" color="dark">
-          SignIn
+        <ion-button
+          (click)="goTo('register')"
+          fill="outline"
+          shape="round"
+          color="dark"
+        >
+          Sign In
         </ion-button>
       </div>
     </ion-card-content>

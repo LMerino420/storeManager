@@ -52,7 +52,7 @@ CREATE TABLE tipo_usuario(
 CREATE TABLE usuarios(
 	codUsuario INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
     usrNombre VARCHAR(150),
-    usrApellido VARCHAR(150),
+    usrMail VARCHAR(260),
     usrNick VARCHAR(50),
     ustPwd VARCHAR(260),
     codTipo INT(11) NOT NULL,
