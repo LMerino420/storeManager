@@ -18,6 +18,7 @@ export class FormProductsPage implements OnInit {
     | IonAccordionGroup
     | any;
 
+  accordionDisabled: boolean = true;
   formProd: FormGroup;
   formCost: FormGroup;
 
@@ -127,6 +128,7 @@ export class FormProductsPage implements OnInit {
 
   //* Limpiar formulario de informacion del producto
   clearFormProd() {
+    this.accordionDisabled = true;
     this.codCategoria?.reset();
     this.prodNombre?.reset();
     this.prodDescripcion?.reset();
@@ -237,6 +239,7 @@ export class FormProductsPage implements OnInit {
       console.log(dt);
       if (code === 'SUCCESS') {
         this.codProducto?.setValue(idProduct);
+        this.accordionDisabled = false;
         this.disableFormProd();
         this.toggleAccordion();
       } else {

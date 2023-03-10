@@ -10,14 +10,14 @@
       </div>
     </ion-card-header>
     <ion-card-content>
-      <div class="wrapForm">
+      <form [formGroup]="formSignUp" (ngSubmit)="registUsr()" class="wrapForm">
         <ion-item>
           <ion-icon name="id-card-outline"></ion-icon>
           <ion-input
             type="text"
-            name="name"
-            [(ngModel)]="name"
-            placeholder="Name: (ex: Juan Perez)"
+            name="usrNombre"
+            formControlName="usrNombre"
+            placeholder="Name: (ex: Jhon Smith)"
             required
           ></ion-input>
         </ion-item>
@@ -25,8 +25,8 @@
           <ion-icon name="mail-outline"></ion-icon>
           <ion-input
             type="text"
-            name="email"
-            [(ngModel)]="email"
+            name="usrMail"
+            formControlName="usrMail"
             placeholder="E-mail: (ex: jperez@mail.com)"
             required
           ></ion-input>
@@ -35,9 +35,9 @@
           <ion-icon name="person-circle-outline"></ion-icon>
           <ion-input
             type="text"
-            name="user"
-            [(ngModel)]="user"
-            placeholder="User"
+            name="usrNick"
+            formControlName="usrNick"
+            placeholder="Nickname"
             required
           ></ion-input>
         </ion-item>
@@ -45,18 +45,23 @@
           <ion-icon name="key-outline"></ion-icon>
           <ion-input
             type="password"
-            name="password"
-            [(ngModel)]="password"
+            name="ustPwd"
+            formControlName="ustPwd"
             placeholder="Password"
             required
           ></ion-input>
         </ion-item>
-      </div>
-      <div class="sign-btn-wrap">
-        <ion-button shape="round" fill="solid" class="sign-btn">
-          Sign up
-        </ion-button>
-      </div>
+        <div class="sign-btn-wrap">
+          <ion-button type="submit" shape="round" fill="solid" class="sign-btn">
+            Sign up
+          </ion-button>
+        </div>
+      </form>
     </ion-card-content>
   </ion-card>
+  <!-- Redireccionar al login -->
+  <div class="card-footer">
+    <span>Already have an account?</span>
+    <button class="ion-no-padding">Sign In</button>
+  </div>
 </ion-content>

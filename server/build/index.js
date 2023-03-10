@@ -10,6 +10,7 @@ const cors_1 = __importDefault(require("cors"));
 const path_1 = __importDefault(require("path"));
 //* IMPORTACION DE RUTAS
 const indexRoutes_1 = __importDefault(require("./routes/indexRoutes"));
+const authRoutes_1 = __importDefault(require("./routes/authRoutes"));
 const categoriesRoutes_1 = __importDefault(require("./routes/categoriesRoutes"));
 const productsRoutes_1 = __importDefault(require("./routes/productsRoutes"));
 class Server {
@@ -36,6 +37,7 @@ class Server {
     //* RUTAS PARA EL SERVIDOR
     routes() {
         this.app.use('/', indexRoutes_1.default);
+        this.app.use('/auth', authRoutes_1.default);
         this.app.use('/categories', categoriesRoutes_1.default);
         this.app.use('/products', productsRoutes_1.default);
     }

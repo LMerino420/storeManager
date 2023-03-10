@@ -23,11 +23,7 @@
           <div class="frmDiv">
             <ion-item fill="outline">
               <ion-label position="floating">Category</ion-label>
-              <ion-select
-                interface="popover"
-                formControlName="codCategoria"
-                [class.is-invalid]="codCategoria!.touched && codCategoria!.invalid"
-              >
+              <ion-select interface="popover" formControlName="codCategoria">
                 <ion-select-option
                   *ngFor="let item of listCategories"
                   [value]="item.codCategoria"
@@ -41,10 +37,7 @@
           <div class="frmDiv">
             <ion-item fill="outline">
               <ion-label position="floating">Name</ion-label>
-              <ion-input
-                formControlName="prodNombre"
-                [class.is-invalid]="prodNombre!.touched && prodNombre!.invalid"
-              ></ion-input>
+              <ion-input formControlName="prodNombre"></ion-input>
             </ion-item>
           </div>
           <!-- Textarea de la descripcion del producto -->
@@ -119,7 +112,7 @@
       </div>
     </ion-accordion>
     <!-- SECCION DE LOS GASTOS DEL PRODUCTO -->
-    <ion-accordion value="second">
+    <ion-accordion value="second" [disabled]="accordionDisabled">
       <ion-item slot="header" color="custom">
         <ion-label>Product costs </ion-label>
       </ion-item>

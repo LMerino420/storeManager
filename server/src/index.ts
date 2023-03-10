@@ -6,6 +6,7 @@ import path from 'path';
 
 //* IMPORTACION DE RUTAS
 import indexRoutes from './routes/indexRoutes';
+import authRoutes from './routes/authRoutes';
 import categoriesRoutes from './routes/categoriesRoutes';
 import productsRoutes from './routes/productsRoutes';
 
@@ -38,6 +39,7 @@ class Server {
 	//* RUTAS PARA EL SERVIDOR
 	routes(): void {
 		this.app.use('/', indexRoutes);
+		this.app.use('/auth', authRoutes);
 		this.app.use('/categories', categoriesRoutes);
 		this.app.use('/products', productsRoutes);
 	}

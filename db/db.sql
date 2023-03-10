@@ -55,6 +55,7 @@ CREATE TABLE usuarios(
     usrMail VARCHAR(260),
     usrNick VARCHAR(50),
     ustPwd VARCHAR(260),
+    usrEstado BOOLEAN,
     codTipo INT(11) NOT NULL,
     FOREIGN KEY (codTipo) REFERENCES tipo_usuario(codTipo)
 );

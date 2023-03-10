@@ -3,8 +3,40 @@ SELECCIONAR BASE DE DATOS
 -------------------------------------------------------- */
 USE db_store_manager;
 
+/* --------------------------------------------------------
+MODIFICAR TABLAS
+-----------------------------------------------------------
 ALTER TABLE gastosProducto
 ADD costoTotal DECIMAL(9,2);
+
+ALTER TABLE usuarios
+ADD usrEstado BOOLEAN;
+
+ALTER TABLE usuarios
+DROP  usrApellido ;
+-------------------------------------------------------- */
+
+/* --------------------------------------------------------
+INSERTAR DATOS PRESTABLECIDOS
+-----------------------------------------------------------
+INSERT INTO tipo_usuario SET tipoNombre = "ADMIN";
+INSERT INTO tipo_usuario SET tipoNombre = "SELLER";
+-------------------------------------------------------- */
+
+/* --------------------------------------------------------
+TRUNCAR TABLAS
+-----------------------------------------------------------
+SET FOREIGN_KEY_CHECKS = 0;
+TRUNCATE productos;
+TRUNCATE imagenes;
+TRUNCATE gastosProducto;
+SET FOREIGN_KEY_CHECKS = 1;
+-------------------------------------------------------- */
+
+/* --------------------------------------------------------
+USUARIOS
+-------------------------------------------------------- */
+
 
 /* --------------------------------------------------------
 CATEGORIAS
@@ -54,13 +86,3 @@ SELECT
     SUM(costoRepuestos) as Repuestos, 
     SUM(costoReparacion) as Reparacion 
 FROM gastosProducto;
-
-
-/* --------------------------------------------------------
-TRUNCAR TABLAS
--------------------------------------------------------- */
-SET FOREIGN_KEY_CHECKS = 0;
-TRUNCATE productos;
-TRUNCATE imagenes;
-TRUNCATE gastosProducto;
-SET FOREIGN_KEY_CHECKS = 1;
