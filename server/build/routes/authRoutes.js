@@ -10,6 +10,8 @@ class AuthRoutes {
     //* RUTAS PARA MANTENIMIENTO DE LA TABLA CATEGORIAS DE LA BDO
     config() {
         this.router.post('/registUser', authController_1.authController.regist);
+        this.router.post('/login', authController_1.authController.login);
+        // this.router.post('/test', authController.test);
     }
 }
 const authRoutes = new AuthRoutes();
